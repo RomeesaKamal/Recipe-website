@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe-Website</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="site-header">
+        <div class="container flex">
+           <!-- Hamburger -->
+       <div class="humburger-container">
+        <div class="hamburger" onclick="toggleSidebar()">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div> 
+      </div>
+        <div id="sidebar" class="hidden">
+          <h3>Search History</h3>
+          <ul id="history-list"></ul>
+        </div>
+        
+     
+          <div class="header-logo flex">
+            <img src="./assests/RK-logo (2).png" alt="" />
+          </div>
+          <form action="">
+            <div class="search-bar">
+              <select name="" id="">
+                <option value="">All Catogries</option>
+                <option value="">All Catogries</option>
+                <option value="">All Catogries</option>
+                <option value="">All Catogries</option>
+              </select>
+              <input type="search" placeholder="Search for recipe" />
+              <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </form>
+          <div class="nav-menu">
+            <ul class="nav-links flex">
+              <a href="">
+                <li id="home">Home</li>
+              </a>
+              <a href="">
+                <li class="nav-item">Explore</li>
+              </a>
+              <a href="">
+                <li class="nav-item">Contact</li>
+              </a>
+            </ul>
+          </div>
+          <div class="site-header__profile-image">
+            <a href="https://github.com/RomeesaKamal">
+              <img src="./assests/RK-profile.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero-banner">
+        <div class="hero-banner-content">
+        <h3>Trending Now</h3>
+        <h1>Milke's famous salad <br> with cheese</h1>
+        <p>By John Mike</p>
+      </div>
+      </div>
+      <div class="feature-buttons">
+        <div class="button-recipes">Recipes and Menu <span>></span></div>
+        <div class="button-share-recipe">Share your Recipe <span>></span></div>
+        <div class="button-custom-meal">Custom Meal Plane <span>></span></div>
+        <div class="button-grocery-list">Create Grocery List<span>></span></div>
+        <div class="button-cooking-tips">
+          Cooking Tips and Tricks<span>></span>
+        </div>
+      </div>
+      <div class="recipe-cards">
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes
+              <span>
+                <i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <img src="./assests/pic.jpg" alt="" class="card-img" />
+          <div class="card-content">
+            <p>Dairy free</p>
+            <h2>
+              Chicken
+              <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+            </h2>
+            <h3>
+              40 minutes<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div class="recommended-section">
+        <h1 class="recommended-title">Recommended Recipes</h1>
+        <div class="recipe-cards">
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes<span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes<span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes<span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes<span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes<span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes<span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes
+                <span
+                  ><i class="fa-regular fa-heart"></i
+                  ><i class="fa-regular fa-comment"></i
+                ></span>
+              </h3>
+            </div>
+          </div>
+          <div class="recipe-card">
+            <img
+              src="./assests/brooke-lark-jUPOXXRNdcA-unsplash.jpg"
+              alt=""
+              class="card-img"
+            />
+            <div class="card-content">
+              <p>Dairy free</p>
+              <h2>
+                Salad
+                <span>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+                </span>
+              </h2>
+              <h3>
+                40 minutes
+                <span>
+                  <i class="fa-regular fa-heart"></i>
+                  <i class="fa-regular fa-comment"></i>
+                </span>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="load-more">
+        <div class="load-more-text">
+          <p>Load More</p>
+        </div>
+      </div>
+      <div class="footer-content">
+        <div class="about-section">
+          <img src="./assests/RK-logo (2).png" alt="" class="logo-img" />
+          <p>
+            Welcome to Kamal's Kitchen Magic, where every recipe is a story and
+            every dish is crafted with love. Our mission is to inspire home
+            cooks to create unforgettable flavors and moments that bring
+            families together. Thank you for joining us on this culinary
+            journey ....... <br>let's make magic in the kitchen!
+          </p>
+        </div>
+        <div class="company-links">
+          <h3>Company</h3>
+          <ul>
+            <li>Home</li>
+            <li>Explore</li>
+            <li>Team</li>
+            <li>About Us</li>
+            <li>Activity</li>
+          </ul>
+        </div>
+        <div class="resources-links">
+          <h3>Resources</h3>
+          <ul>
+            <li>Blog</li>
+            <li>Use Cases</li>
+            <li>Testimonials</li>
+            <li>Insights</li>
+          </ul>
+        </div>
+        <div class="contact-info">
+          <img src="./assests/RK-logo (2).png" alt="" class="logo-img" />
+          <p>
+            We'd love to hear from you! Got a question, a recipe idea, or just
+            want to say hello? Drop us a message and let's connect!
+          </p>
+          <div class="email-subscribe">
+            <input
+              type="email"
+              name=""
+              id=""
+              placeholder="Your Email                                          @"
+            />
+            <button>Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="social-media-links">
+        <a href=""><i class="fa-brands fa-twitter"></i></a>
+
+        <a href="">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href=""><i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href=""><i class="fa-brands fa-linkedin-in"></i>
+        </a>
+      </div>
+    </main>
+    
+     <script src="script.js"></script>
+  </body>
+</html>
