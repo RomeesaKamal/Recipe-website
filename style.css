@@ -76,14 +76,24 @@ margin-top: 20px;
 #sidebar {
   position: fixed;
   top: 0;
-  right: 0;
+  /* right: 0; */
+  left: 0;
   width: 300px;
   height: 100%;
   background-color: #f9f9f9;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  overflow-y: auto;
+  overflow-x: auto;
   display: none;
+}
+
+#sidebar h3{
+  margin-top: 42rem;
+}
+
+.filter-list{
+  display: flex;
+  flex-direction: column;
 }
 
 #sidebar.hidden {
@@ -109,19 +119,12 @@ margin-top: 20px;
   top: 0;
 }
 
-.header-logo {
-  overflow: hidden;
-}
-
 .header-logo img {
   width: 100px;
   height: 100px;
   transition: transform 0.3s ease;
 }
 
-.header-logo:hover {
-  transform: scale(1.2);
-}
 
 form {
   width: 497px;
@@ -184,33 +187,24 @@ form button i {
 
 .nav-item {
   padding: 0 15px;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 #home {
   padding: 0 15px;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
   color: #53a02f;
 }
 
 #home:hover {
-  border-color: #72756f;
-  box-shadow: 0 0 20px rgba(106, 129, 115, 0.7);
-  border-radius: 8px;
-  background-color: #e5e7d4;
+ text-decoration: underline;
 }
 
 .nav-item:hover {
-  border-color: #72756f;
-  box-shadow: 0 0 20px rgba(106, 129, 115, 0.7);
-  border-radius: 8px;
-  background-color: #e5e7d4;
+  text-decoration: underline;
 }
 
 .site-header__profile-image {
   display: flex;
   justify-content: end;
-  overflow: hidden;
 }
 
 .site-header__profile-image img {
@@ -219,9 +213,7 @@ form button i {
   height: 100px;
   transition: transform 0.3s ease;
 }
-.site-header__profile-image:hover img {
-  transform: scale(1.2);
-}
+
 
 /* Hero Section */
 
@@ -262,6 +254,23 @@ form button i {
   font-size: 27px;
 }
 
+.button-arrows{
+  margin-top: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-arrows span{
+ border-radius: 50%;
+  padding: 16px;
+  background-color: #b2b6af;
+  border: none;
+}
+
+.button-arrows button i{
+  font-size: 20px;
+}
 /* Buttons */
 
 .feature-buttons {
