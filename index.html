@@ -18,20 +18,45 @@
     <header>
       <div class="site-header">
         <div class="container flex">
-           <!-- Hamburger -->
-       <div class="humburger-container">
-        <div class="hamburger" onclick="toggleSidebar()">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div> 
-      </div>
-        <div id="sidebar" class="hidden">
-          <h3>Search History</h3>
-          <ul id="history-list"></ul>
-        </div>
-        
-     
+          <!-- Hamburger -->
+          <div class="humburger-container">
+            <div class="hamburger" onclick="toggleSidebar()">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+          </div>
+          <div id="sidebar" class="hidden">
+            <h3>Filters</h3>
+            <ul class="filter-list">
+              <h4>Diet</h4>
+              <fieldset> <input type="checkbox" name="" id="" />
+                <li>Vaggies</li></fieldset>
+             <fieldset> <input type="checkbox" name="" id="" />
+              <li>Dairy</li></fieldset>
+             
+
+              <h4>Allergies</h4>
+              <input type="checkbox" />
+              <li>Gluten</li>
+              <input type="checkbox" />
+              <li>Lorem</li>
+
+              <h4>Cuisines</h4>
+              <li>Pakistani</li>
+              <li>Persian</li>
+              <li>Afghani</li>
+              <li>British</li>
+              <li>Irish</li>
+              <li>Irani</li>
+              <p>See more</p>
+
+              <h4>Goals</h4>
+              <li>Weight Loss</li>
+              <li>Get Active</li>
+            </ul>
+          </div>
+
           <div class="header-logo flex">
             <img src="./assests/RK-logo (2).png" alt="" />
           </div>
@@ -39,9 +64,9 @@
             <div class="search-bar">
               <select name="" id="">
                 <option value="">All Catogries</option>
-                <option value="">All Catogries</option>
-                <option value="">All Catogries</option>
-                <option value="">All Catogries</option>
+                <option value="">Vegetables</option>
+                <option value="">Fastfood</option>
+                <option value="">Chicken</option>
               </select>
               <input type="search" placeholder="Search for recipe" />
               <button><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -72,10 +97,17 @@
     <main>
       <div class="hero-banner">
         <div class="hero-banner-content">
-        <h3>Trending Now</h3>
-        <h1>Milke's famous salad <br> with cheese</h1>
-        <p>By John Mike</p>
-      </div>
+          <h3>Trending Now</h3>
+          <h1>
+            Milke's famous salad <br />
+            with cheese
+          </h1>
+          <p>By John Mike</p>
+        </div>
+        <div class="button-arrows">
+          <span><i class="fa-light fa-arrow-right"></i></span>
+          <span><i class="fa-sharp fa-light fa-arrow-left"></i></span>
+        </div>
       </div>
       <div class="feature-buttons">
         <div class="button-recipes">Recipes and Menu <span>></span></div>
@@ -92,7 +124,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Tandoori Chicken
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -111,7 +143,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Butter Chicken
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -130,7 +162,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Chicken Adobo
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -148,7 +180,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Teriyaki Chicken
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -166,7 +198,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Chicken Alfredo
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -184,7 +216,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Chicken Tikka
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -202,7 +234,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Chicken Korma
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -220,7 +252,7 @@
           <div class="card-content">
             <p>Dairy free</p>
             <h2>
-              Chicken
+              Chicken Soup
               <span>
                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
               </span>
@@ -431,8 +463,8 @@
             Welcome to Kamal's Kitchen Magic, where every recipe is a story and
             every dish is crafted with love. Our mission is to inspire home
             cooks to create unforgettable flavors and moments that bring
-            families together. Thank you for joining us on this culinary
-            journey ....... <br>let's make magic in the kitchen!
+            families together. Thank you for joining us on this culinary journey
+            ....... <br />let's make magic in the kitchen!
           </p>
         </div>
         <div class="company-links">
@@ -477,13 +509,11 @@
         <a href="">
           <i class="fa-brands fa-facebook-f"></i>
         </a>
-        <a href=""><i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href=""><i class="fa-brands fa-linkedin-in"></i>
-        </a>
+        <a href=""><i class="fa-brands fa-instagram"></i> </a>
+        <a href=""><i class="fa-brands fa-linkedin-in"></i> </a>
       </div>
     </main>
-    
-     <script src="script.js"></script>
+
+    <script src="script.js"></script>
   </body>
 </html>
