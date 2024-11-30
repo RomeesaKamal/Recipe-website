@@ -91,9 +91,8 @@ const openRecipePopup = (meal) => {
   
   // Show the recipe details container
 
-  recipeDetailsContent.parentElement.style.display = 'none';
+  recipeDetailsContent.parentElement.style.display = 'block';
  
-  
 };
 
 

@@ -398,6 +398,7 @@ span {
   z-index: 9999;
 }
 
+
 /* Adding scroll bar to recipe details */
 
 .recipe-details::-webkit-scrollbar{
