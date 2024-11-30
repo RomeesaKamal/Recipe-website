@@ -15,7 +15,7 @@ const fetchRecipes = async (query) => {
     ` https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
   );
   const response = await data.json();
-  // recipeContainer.innerHTML = "";
+  recipeContainer.innerHTML = "";
   response.meals.forEach((meal) => {
     const recipeDiv = document.createElement("div");
     recipeDiv.classList.add("recipe-card");
@@ -75,7 +75,7 @@ const fetchIngredients = (meal) => {
 }
 
 const openRecipePopup = (meal) => {
-  
+
   // Set the content of the popup
 
   recipeDetailsContent.innerHTML = `
