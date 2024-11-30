@@ -23,14 +23,20 @@
           </div>
           <form action="">
             <div class="search-bar">
-              <select name="" id="">
+              <select name="" id="select">
                 <option value="">All Catogries</option>
                 <option value="">Vegetables</option>
                 <option value="">Fastfood</option>
                 <option value="">Chicken</option>
               </select>
-              <input type="search" placeholder="Search for recipe" />
-              <button><i class="fa-solid fa-magnifying-glass"></i></button>
+              <input
+                type="search"
+                class="search-box"
+                placeholder="Search for recipe"
+              />
+              <button class="search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
             </div>
           </form>
           <div class="nav-menu">
@@ -66,9 +72,9 @@
           <p>By John Mike</p>
         </div>
         <div class="arrows">
-        <span><i class="fa-solid fa-arrow-right"></i></span>
-        <span><i class="fa-solid fa-arrow-left"></i></span>
-      </div>
+          <span><i class="fa-solid fa-arrow-right"></i></span>
+          <span><i class="fa-solid fa-arrow-left"></i></span>
+        </div>
       </div>
       <div class="feature-buttons">
         <div class="button-recipes">Recipes and Menu <span>></span></div>
@@ -80,153 +86,14 @@
         </div>
       </div>
       <div class="recipe-cards">
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Tandoori Chicken
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Butter Chicken
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes
-              <span>
-                <i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Chicken Adobo
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Teriyaki Chicken
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Chicken Alfredo
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Chicken Tikka
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Chicken Korma
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
-        </div>
-        <div class="recipe-card">
-          <img src="./assests/pic.jpg" alt="" class="card-img" />
-          <div class="card-content">
-            <p>Dairy free</p>
-            <h2>
-              Chicken Soup
-              <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
-            </h2>
-            <h3>
-              40 minutes<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>
-          </div>
+        <div class="recipe-details">
+          <button type="button" class="recipe-close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <div class="recipe-details-content"></div>
         </div>
       </div>
+
       <div class="recommended-section">
         <h1 class="recommended-title">Recommended Recipes</h1>
         <div class="recipe-cards">
