@@ -79,7 +79,7 @@ const openRecipePopup = (meal) => {
   // Set the content of the popup
 
   recipeDetailsContent.innerHTML = `
-    <h2 class="recipeName">${meal?.strMeal || "No uName"}</h2>
+    <h2 class="recipeName">${meal?.strMeal || "No Name"}</h2>
     <h3>Ingredients: </h3>
     <ul class = "ingredientsList" >${fetchIngredients(meal) || "<li>No Ingredients Available</li>"}</ul>
     <div>
