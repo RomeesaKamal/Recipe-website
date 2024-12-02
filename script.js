@@ -2,7 +2,6 @@
 
 const searchBox = document.querySelector(".search-box");
 const searchBtn = document.querySelector(".search-btn");
-const select = document.querySelector(" #select");
 const recipeTitle = document.querySelector(".research-title");
 const recipeDetails = document.querySelector(".recipe-details");
 const resultCards = document.querySelector(".result-cards");
@@ -281,3 +280,135 @@ loadMoreBtn.addEventListener("click", async () => {
     fetchPaginatedRecipes(newRecipes); // Assuming you have a renderRecipes function
   }
 });
+
+// const select = document.querySelector("#select");
+
+// // Function to fetch recipe categories
+// const fetchCategories = async () => {
+//   try {
+//     const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php'); // Correct API URL
+//     const data = await response.json();
+//     return data.categories || [];
+//   } catch (error) {
+//     console.error('Error fetching categories:', error);
+//     return [];
+//   }
+// };
+
+// // Populate the select dropdown with categories
+// const populateCategories = async () => {
+//   const categories = await fetchCategories();
+
+//   // Clear existing options (if needed)
+//   select.innerHTML = '<option value="">All Categories</option>';
+
+//   // Add new categories as options
+//   categories.forEach((category) => {
+//     const option = document.createElement('option');
+//     option.value = category.strCategory; // Use the category name as the value
+//     option.textContent = category.strCategory;
+//     select.appendChild(option);
+//   });
+// };
+
+// // Add event listener to populate categories when the select element is clicked
+// select.addEventListener('click', populateCategories);
+
+// Select elements
+const select = document.querySelector("#select");
+// const resultCards = document.querySelector(".result-cards");
+
+// Function to fetch recipe categories
+const fetchCategories = async () => {
+  try {
+    const response = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+    const data = await response.json();
+    return data.categories || [];
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+};
+
+// Populate the select dropdown with categories
+const populateCategories = async () => {
+  const categories = await fetchCategories();
+
+  // Clear existing options
+  select.innerHTML = '<option value="">All Categories</option>';
+
+  // Add categories dynamically
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.strCategory;
+    option.textContent = category.strCategory;
+    select.appendChild(option);
+  });
+};
+
+// Fetch and display recipes by selected category
+const fetchAndDisplayRecipesByCategory = async (category) => {
+  try {
+    resultCards.innerHTML = "<h2>Loading Recipes...</h2>";
+
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+    const data = await response.json();
+
+    if (!data.meals || data.meals.length === 0) {
+      resultCards.innerHTML = "<p>No recipes found for this category.</p>";
+      return;
+    }
+
+    resultCards.innerHTML = ""; // Clear previous results
+
+    data.meals.forEach((meal) => {
+      // Create recipe card
+      const resultCard = document.createElement("div");
+      resultCard.classList.add("result-card");
+
+      // Add meal content
+      resultCard.innerHTML = `
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+        <div class="card-content">
+          <p>${meal.strArea}   Dish</p>
+          <h2>${meal.strMeal}
+           <span>
+                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+              </span>
+          </h2>
+            <h3>
+       ${meal.strCategory}<span
+                ><i class="fa-regular fa-heart"></i
+                ><i class="fa-regular fa-comment"></i
+              ></span>
+            </h3>   
+          <button class="view-recipe-btn"  data-id="${fetchIngredients(meal)}}">View Recipe</button>
+        </div>
+      `;
+
+      // Add event listener for "View Recipe" button
+      resultCard.querySelector(".view-recipe-btn").addEventListener("click", () => {
+        openRecipePopup(meal);
+      });
+
+      resultCards.appendChild(resultCard);
+    });
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+    resultCards.innerHTML = "<p>Failed to load recipes. Please try again later.</p>";
+  }
+};
+
+// Add change event listener to select dropdown
+select.addEventListener("change", (e) => {
+  const selectedCategory = e.target.value;
+  if (selectedCategory) {
+    fetchAndDisplayRecipesByCategory(selectedCategory);
+  } else {
+    resultCards.innerHTML = "<p>Please select a category to view recipes.</p>";
+  }
+});
+
+// Populate categories on page load
+document.addEventListener("DOMContentLoaded", populateCategories);
+
