@@ -129,24 +129,30 @@ const fetchIngredients = (meal) => {
 };
 
 const openRecipePopup = (meal) => {
-  // Set the content of the popup
+	// Extract the YouTube video ID from the URL
+	const youtubeEmbedUrl = meal.strYoutube
+		? meal.strYoutube.replace('watch?v=', 'embed/')
+		: '';
 
-  recipeDetailsContent.innerHTML = `
-    <h2 class="recipeName" >${meal?.strMeal || "No Name"}</h2>
-    <h3 class = "ingredientHeading" >Ingredients: </h3>
-    <ul class = "ingredientsList" >${
-      fetchIngredients(meal) || "<li>No Ingredients Available</li>"
-    }</ul>
-    <video src="${meal.strYoutube}"></video>
-    <div class = "recipeInstructions">
+	recipeDetailsContent.innerHTML = `
+    <h2 class="recipeName">${meal?.strMeal || 'No Name'}</h2>
+    <h3 class="ingredientHeading">Ingredients:</h3>
+    <ol class="ingredientsList">${
+			fetchIngredients(meal) || '<li>No Ingredients Available</li>'
+		}</ol>
+    ${
+			youtubeEmbedUrl
+				? `<iframe width="600" height="315" src="${youtubeEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+				: '<p>No Video Available</p>'
+		}
+    <div class="recipeInstructions">
       <h3>Instructions:</h3>
       <p>${meal.strInstructions}</p>
     </div>
   `;
-
-  // Show the recipe details container
-  recipeDetails.style.display = "block";
-};
+	// Show the recipe details container
+	recipeDetails.style.display = 'block';
+}; 
 
 // Close button functionality
 
