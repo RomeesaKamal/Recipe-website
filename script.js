@@ -312,7 +312,23 @@ const populateCategories = async () => {
   });
 };
 
+async function getRecipeById(id) {
+	try {
+		const response = await fetch(
+			"https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}",
+		);
+		const data = await response.json();
+
+		return data.meals[0];
+	} catch (error) {
+		console.error('Error fetching recipe details:', error);
+		throw error;
+	}
+};
+
+
 // Fetch and display recipes by selected category
+
 const fetchAndDisplayRecipesByCategory = async (category) => {
   try {
     resultCards.innerHTML = "<h2>Loading Recipes...</h2>";
@@ -343,18 +359,21 @@ const fetchAndDisplayRecipesByCategory = async (category) => {
               </span>
           </h2>
             <h3>
-       ${meal.strCategory}<span
+                 ${category}<span
                 ><i class="fa-regular fa-heart"></i
                 ><i class="fa-regular fa-comment"></i
               ></span>
             </h3>   
-          <button class="view-recipe-btn"  data-id="${fetchIngredients(meal)}}">View Recipe</button>
+          <button class="view-recipe-btn">View Recipe</button>
         </div>
       `;
 
-      // Add event listener for "View Recipe" button
-      resultCard.querySelector(".view-recipe-btn").addEventListener("click", () => {
-        openRecipePopup(meal);
+    // Add event listener for "View Recipe" button
+			resultCard
+      .querySelector('.view-recipe-btn')
+      .addEventListener('click', async () => {
+        const mealDetails = await getRecipeById(meal.idMeal);
+        openRecipePopup(mealDetails);
       });
 
       resultCards.appendChild(resultCard);
