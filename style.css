@@ -165,7 +165,7 @@ form button i {
   transition: background-image 0.5s ease-in-out;
   box-sizing: border-box;
 }
-.hero-banner::before {
+/* .hero-banner::before {
   content: "";
   position: absolute;
   top: 0;
@@ -173,10 +173,11 @@ form button i {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5); /* Optional dark overlay */
-  z-index: 1;
-}
+  /* z-index: 1;
+} */
+
 .hero-banner-content {
-  z-index: 2;
+  /* z-index: 2; */
   padding: 2rem 4rem;
   display: grid;
   grid-template-columns: 1fr;

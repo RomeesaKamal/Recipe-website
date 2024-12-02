@@ -442,4 +442,5 @@ arrows[1].addEventListener("click", () => {
 });
 
 // Initialize hero banner with the first recipe
+
 updateHeroBanner(currentRecipeIndex);
