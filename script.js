@@ -174,7 +174,6 @@ fetchRecipes("chicken");
 
 const buttonReipes = document.querySelector(".button-recipes");
 const menuCard = document.querySelector(".menu-card");
-const heroBanner = document.querySelector(".hero-banner");
 const featureButtons = document.querySelector(".feature-buttons");
 const footerContent = document.querySelector(".footer-content");
 const recommendedTitle = document.querySelector(".recommended-title");
@@ -281,40 +280,7 @@ loadMoreBtn.addEventListener("click", async () => {
   }
 });
 
-// const select = document.querySelector("#select");
 
-// // Function to fetch recipe categories
-// const fetchCategories = async () => {
-//   try {
-//     const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php'); // Correct API URL
-//     const data = await response.json();
-//     return data.categories || [];
-//   } catch (error) {
-//     console.error('Error fetching categories:', error);
-//     return [];
-//   }
-// };
-
-// // Populate the select dropdown with categories
-// const populateCategories = async () => {
-//   const categories = await fetchCategories();
-
-//   // Clear existing options (if needed)
-//   select.innerHTML = '<option value="">All Categories</option>';
-
-//   // Add new categories as options
-//   categories.forEach((category) => {
-//     const option = document.createElement('option');
-//     option.value = category.strCategory; // Use the category name as the value
-//     option.textContent = category.strCategory;
-//     select.appendChild(option);
-//   });
-// };
-
-// // Add event listener to populate categories when the select element is clicked
-// select.addEventListener('click', populateCategories);
-
-// Select elements
 const select = document.querySelector("#select");
 // const resultCards = document.querySelector(".result-cards");
 
@@ -410,5 +376,70 @@ select.addEventListener("change", (e) => {
 });
 
 // Populate categories on page load
+
 document.addEventListener("DOMContentLoaded", populateCategories);
 
+const heroBannerContent = document.querySelector(".hero-banner-content");
+const arrows = document.querySelectorAll(".arrows span");
+const heroBanner = document.querySelector(".hero-banner");
+
+// Trending recipes data
+const trendingRecipes = [
+  {
+    title: "Chicken Biryani Karachi Style",
+    author: "Zoha",
+    image: "https://bakewithzoha.com/wp-content/uploads/2024/03/chicken-biryani-5-scaled.jpg",
+  },
+  {
+    title: "Pasta Spaghetti",
+    author: "Jane Doe",
+    image: "https://as1.ftcdn.net/v2/jpg/09/21/84/96/1000_F_921849613_6mIHmQg12LUZpbpAfF6slvYheY6pNFIg.jpg",
+  },
+  {
+    title: "KFC Zinger Burger",
+    author: "Ibrahim Cafe",
+    image: "https://media.istockphoto.com/id/1309352410/photo/cheeseburger-with-tomato-and-lettuce-on-wooden-board.jpg?s=2048x2048&w=is&k=20&c=wydysVEp52o1ULrj9XWI_f8M2lZ06qm8xlBl6GmjTSQ=",
+  },
+];
+
+let currentRecipeIndex = 0;
+
+// Function to update hero banner content
+const updateHeroBanner = (index) => {
+  const recipe = trendingRecipes[index];
+
+  // Debugging: Log the recipe details to check if the data is correct
+  console.log("Updating banner with recipe:", recipe);
+
+  // Update hero banner content
+  heroBannerContent.innerHTML = `
+    <h3>Trending Now</h3>
+    <h1>${recipe.title.split(" ").slice(0, 3).join(" ")}<br />${recipe.title.split(" ").slice(3).join(" ")}</h1>
+    <p>By ${recipe.author}</p>
+  `;
+
+  // Update background image dynamically
+  if (recipe.image) {
+    heroBanner.style.backgroundImage = `url(${recipe.image})`;
+  } else {
+    console.error("Image URL is invalid or missing:", recipe.image);
+    heroBanner.style.backgroundImage = ""; // Clear background if image is missing
+  }
+};
+
+// Event listeners for navigation arrows
+arrows[0].addEventListener("click", () => {
+  // Navigate to the previous recipe
+  currentRecipeIndex =
+    (currentRecipeIndex - 1 + trendingRecipes.length) % trendingRecipes.length;
+  updateHeroBanner(currentRecipeIndex);
+});
+
+arrows[1].addEventListener("click", () => {
+  // Navigate to the next recipe
+  currentRecipeIndex = (currentRecipeIndex + 1) % trendingRecipes.length;
+  updateHeroBanner(currentRecipeIndex);
+});
+
+// Initialize hero banner with the first recipe
+updateHeroBanner(currentRecipeIndex);
