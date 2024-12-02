@@ -137,7 +137,7 @@ const openRecipePopup = (meal) => {
     <ul class = "ingredientsList" >${
       fetchIngredients(meal) || "<li>No Ingredients Available</li>"
     }</ul>
-      <video src="${meal.strYoutube}"></video>
+    <video src="${meal.strYoutube}"></video>
     <div class = "recipeInstructions">
       <h3>Instructions:</h3>
       <p>${meal.strInstructions}</p>
