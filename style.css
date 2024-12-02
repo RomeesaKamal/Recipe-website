@@ -155,11 +155,10 @@ form button i {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-self: cente;
   border-radius: 16px;
   background-size: cover;
   background-position: center;
-  height: 400px;
+  height: 600px;
   margin: 4rem 5rem;
   font-family: Arial, Helvetica, sans-serif;
   transition: background-image 0.5s ease-in-out;
@@ -202,7 +201,6 @@ form button i {
 
 .arrows {
   position: absolute;
-  /* margin-top: 25rem; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -544,6 +542,7 @@ margin-bottom: 10px;
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
 }
 
 .recipe-close-btn:hover{
