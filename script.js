@@ -155,11 +155,9 @@ const recipeCloseBtn = document.querySelector(".recipe-close-btn");
 
 recipeCloseBtn.addEventListener("click", () => {
   recipeDetails.style.display = "none";
-  menuCard.style.display = "none";
-  console.log(recipeCloseBtn); // Should not be null
-  console.log(recipeDetails); // Should not be null
-  console.log(menuCard); // Should not be null
 });
+
+
 
 //  Search Button Functionality
 
@@ -242,7 +240,13 @@ buttonReipes.addEventListener("click", (e) => {
   featureButtons.style.marginTop = "5rem";
   footerContent.style.marginTop = "41rem";
   buttonReipes.style.hoverColor = "active";
+  // menuCloseBtn.style.display = 'block'
   openMenuPopup();
+});
+const menuCloseBtn = document.querySelector(".menu-close-btn");
+
+recipeCloseBtn.addEventListener("DOMContentLoaded", () => {
+  menuCard.style.display = "none";
 });
 
 // Fumction for Load More Button
