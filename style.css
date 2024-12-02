@@ -32,10 +32,6 @@ a {
   color: inherit;
 }
 
-li {
-  list-style: none;
-}
-
 body {
   width: 100%;
   height: 100vh;
@@ -123,11 +119,13 @@ form button i {
 
 .nav-item {
   padding: 0 15px;
+  list-style: none;
 }
 
 #home {
   padding: 0 15px;
   color: #53a02f;
+  list-style: none;
 }
 
 #home:hover {
@@ -204,6 +202,7 @@ form button i {
   font-size: 20px;
   border: 2px solid #fff;
 }
+
 /* Buttons */
 
 .feature-buttons {
@@ -236,6 +235,7 @@ form button i {
 span {
   gap: 16px;
 }
+
 .button-recipes {
   background-color: #f6784c;
   box-shadow: 0px 4px 0px #dc582a;
@@ -280,9 +280,66 @@ span {
   background-color: #689402;
 }
 
+/* Menu Card Styling */
+
+.menu-card{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  background-color: #397e54;
+  color: #fff;
+  border-radius: 12px;
+  width: 60%;
+  height: 60%;
+  font-size: 20px;
+  transition: all 0.5s ease-in-out;
+  overflow-y: scroll;
+  z-index: 9999;
+  margin-top: 7rem;
+  padding: 30px;
+}
+
+.menu-card h2{
+  margin-top: 25px;
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-size: 40px;
+}
+.menu-catogry{
+  padding: 15px 30px;
+  color: #413737;
+}
+.menu-card p{
+  margin-top: 15px;
+  letter-spacing: 2px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.menu-card ul{
+  color: #fff;
+  padding: 30px;
+  line-height: 60px;
+  font-size: 25px;
+}
+
+.menu-card::-webkit-scrollbar{
+  width: 20px;
+}
+
+.menu-card::-webkit-scrollbar-thumb{
+background: #628a64;
+border-radius: 4px;
+--webkit-border-radius:16px;
+}
+
 /* Recipe Cards */
 
-.recipe-cards {
+.recipe-cards, .result-cards{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin: 4rem 5rem;
@@ -290,19 +347,20 @@ span {
   grid-row-gap: 60px;
 }
 
-.recipe-card {
+.recipe-card, .result-card {
   border-radius: 8px;
   box-shadow: 0px 4px 4px var(--main-color);
   padding: 15px;
-  /* overflow: hidden; */
 }
 
-.recipe-card:hover {
+.recipe-card:hover,
+.result-card:hover {
   transition: 1s ease-in-out;
   transform: scale(1.1);
 }
 
-.recipe-cards img {
+.recipe-cards img,
+.result-cards img{
   width: 100%;
   height: 300px;
   border-radius: 8px;
@@ -381,6 +439,7 @@ span {
 /* Recipe Details */
 
 .recipe-details {
+  display: flex;
   display: none;
   position: fixed;
   top: 50%;
@@ -398,25 +457,32 @@ span {
   z-index: 9999;
 }
 
-
-/* Adding scroll bar to recipe details */
-
 .recipe-details::-webkit-scrollbar{
-  width: 10px;
+  width: 20px;
 }
 
 .recipe-details::-webkit-scrollbar-thumb{
 background: #b5b5ba;
-border-radius: 16px;
+border-radius: 4px;
 --webkit-border-radius:16px;
 }
 
 .recipe-details-content{
   padding: 30px;
-
+  color: #fff;
 }
 
-.recipeName{
+.ingredientsList{
+  color: #fff;
+}
+
+.ingredientHeading h3, .recipeInstructions h3{
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #252525
+};
+
+.recipe-details-content h2{
 text-align: center;
 text-transform: uppercase;
 text-decoration: underline;
@@ -425,7 +491,6 @@ margin-bottom: 10px;
 
 .ingredientsList{
   margin-top: 10px;
-  margin-left: 20px;
 }
 
 .recipeInstructions p{
@@ -433,12 +498,8 @@ margin-bottom: 10px;
   white-space: pre-line;
 }
 
-.recipeName, .ingredientsList, .recipeInstructions{
-  margin-bottom: 20px;
-}
-
 .recipe-close-btn{
-  padding: 14px;
+  padding: 10px;
   color: #fff;
   background-color: #3c413a;
   border: none;
@@ -454,12 +515,16 @@ margin-bottom: 10px;
   transition: 0.3s ease all;
 }
 
-.recommended-title {
+.recommended-title, .research-title {
   margin: 4rem 5rem;
   font-size: 45px;
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 24px;
+}
+
+.research-title{
+  display: none;
 }
 
 /* Load More Button Styling */
@@ -498,7 +563,6 @@ margin-bottom: 10px;
 }
 
 .about-section {
-  /* margin-top: 30px; */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -539,6 +603,7 @@ ul {
   letter-spacing: 1px;
   color: #302f2f;
   font-weight: 500;
+  list-style: none;
 }
 
 .company-links li:hover {
@@ -621,7 +686,6 @@ ul {
   align-items: center;
   gap: 80px;
   padding: 55px 0;
-  /* margin-bottom: 4rem; */
 }
 
 .social-media-links a {
