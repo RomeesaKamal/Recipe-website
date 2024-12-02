@@ -120,7 +120,7 @@ const fetchIngredients = (meal) => {
     const ingredient = meal[`strIngredient${i}`];
     if (ingredient) {
       const measure = meal[`strMeasure${i}`];
-      ingredientsList += `<li>${measure || ""} ${ingredient}<li/>`;
+      ingredientsList += `<li>${measure || ""} ${ingredient}</li>`;
     } else {
       continue;
     }

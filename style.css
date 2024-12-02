@@ -497,10 +497,6 @@ border-radius: 4px;
   color: #fff;
 }
 
-.ingredientsList{
-  color: #fff;
-}
-
 .ingredientHeading h3, .recipeInstructions h3{
   font-weight: 700;
   margin-bottom: 15px;
@@ -516,6 +512,12 @@ margin-bottom: 10px;
 
 .ingredientsList{
   margin-top: 10px;
+  font-size: 18px;
+  line-height: 35px;
+  color: #fff;
+  padding: 10px 35px;
+  list-style-type: disc;
+
 }
 
 .recipeInstructions p{
@@ -523,6 +525,11 @@ margin-bottom: 10px;
   white-space: pre-line;
 }
 
+.recipeName{
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
 .recipe-close-btn{
   padding: 10px;
   color: #fff;
@@ -621,15 +628,17 @@ h3 {
   letter-spacing: 1px;
 }
 
-.company-links,
-.resources-links,
-ul {
+.company-links ul,
+.resources-links ul
+{
   font-size: 18px;
-  line-height: 70px;
+  line-height: 35px;
   letter-spacing: 1px;
   color: #302f2f;
   font-weight: 500;
-  list-style: none;
+  padding: 10px 35px;
+  /* list-style: none; */
+  list-style-type: disc;
 }
 
 .company-links li:hover {
