@@ -182,44 +182,6 @@ const featureButtons = document.querySelector(".feature-buttons");
 const footerContent = document.querySelector(".footer-content");
 const recommendedTitle = document.querySelector(".recommended-title");
 
-// const openMenuPopup = async () => {
-//   try {
-//     // Fetch all recipes (use the desired query or API URL)
-
-//     const data = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=");
-//     const response = await data.json();
-
-//     if (!response.meals) {
-//       menuCard.innerHTML = `
-//         <h2>Recipe Collection</h2>
-//         <p>No recipes found!</p>
-//       `;
-//       return;
-//     }
-
-//     // Generate recipe list
-
-//     const recipeList = response.meals
-//       .map((meal) => `<li>${meal.strMeal}</li><li>${meal.strCategory}</li>`)
-//       .join("");
-
-//     // Populate the menuCard content
-
-//     menuCard.innerHTML = `
-//       <h2>Recipe Collection</h2>
-//       <p>Discover, Choose, and Cook with Confidence!</p>
-//       <ul class="menu-content">
-//         ${recipeList}
-//       </ul>
-//     `;
-//   } catch (error) {
-//     console.error("Failed to fetch recipes:", error);
-//     menuCard.innerHTML = `
-//       <h2>Recipe Collection</h2>
-//       <p>Unable to load recipes. Please try again later.</p>
-//     `;
-//   }
-// };
 
 const openMenuPopup = async () => {
   try {
