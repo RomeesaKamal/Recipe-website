@@ -77,20 +77,25 @@
         </div>
       </div>
       <div class="feature-buttons">
-        <div class="button-recipes">Recipes and Menu <span>></span>
-          <div class="menu-card">
-            <button type="button" class="menu-close-btn">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
+    <div class="button-recipes">Recipes and Menu <span>></span></div>
         <div class="button-share-recipe">Share your Recipe <span>></span></div>
-        <div class="button-custom-meal">Custom Meal Plane <span>></span></div>
+        <div class="button-custom-meal" id="customMealPlanBtn">Custom Meal Plane <span>></span>
+        </div>
+       
         <div class="button-grocery-list">Create Grocery List<span>></span></div>
         <div class="button-cooking-tips">
           Cooking Tips and Tricks<span>></span>
         </div>
       </div>
+    </div>
+
+      <div class="menu-card">
+        <div class="menu-card-content"></div>
+        <button type="button" class="menu-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+        </div>
+      
 
         <div class="recipe-details">
           <button type="button" class="recipe-close-btn">
@@ -99,6 +104,55 @@
           <div class="recipe-details-content"></div>
         </div>
       </div>
+
+
+<!-- Share Recipe Form (Initially Hidden) -->
+<div class="share-recipe-container" style="display: none;">
+  <h2>Share Your Recipe</h2>
+  <button class="close-share-recipe"><i class="fas fa-times"></i></button>
+  <div class="succes-message-container"></div>
+  <form id="recipeForm">
+    <label for="recipeName">Recipe Name:</label>
+    <input type="text" id="recipeName" placeholder="Enter recipe name"/>
+    <p class="recipe-name-error"></p>
+
+    <label for="ingredients">Ingredients:</label>
+    <textarea id="ingredients" placeholder="List ingredients, separated by commas"></textarea>
+    <p class="ingredients-error"></p>
+
+    <label for="instructions">Instructions:</label>
+    <textarea id="instructions" placeholder="Write cooking instructions"></textarea>
+    <p class="instructions-error"></p>
+
+    <button type="submit" id="submitRecipe">Submit Recipe</button>
+    
+  </form>
+</div>
+
+
+      <div class="custom-meal-container">
+        <h1>Custom Meal Plan Generator</h1>
+        <button type="button" class="custom-meal-container-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+        <form id="mealForm">
+            <label for="diet" id="#label">Select Your Diet Preference:</label>
+            <select id="diet" name="diet">
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="non-vegetarian">Non-Vegetarian</option>
+            </select>
+        </form>
+            <button type="button" class="generate-plane">Generate Plane</button>
+              
+        <div id="mealPlan">
+            <h2>Your Meal Plan:</h2>
+            <ul>
+                <li><strong>Breakfast:</strong> <span id="breakfast"></span></li>
+                <li><strong>Lunch:</strong> <span id="lunch"></span></li>
+                <li><strong>Dinner:</strong> <span id="dinner"></span></li>
+            </ul>
+        </div>
          
       <div class="result-section">
         <h2 class="research-title">Generated Recipe</h2>

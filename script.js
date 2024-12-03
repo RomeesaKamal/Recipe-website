@@ -180,6 +180,7 @@ fetchRecipes("chicken");
 
 const buttonReipes = document.querySelector(".button-recipes");
 const menuCard = document.querySelector(".menu-card");
+const menuCardContent = document.querySelector(".menu-card-content");
 const featureButtons = document.querySelector(".feature-buttons");
 const footerContent = document.querySelector(".footer-content");
 const recommendedTitle = document.querySelector(".recommended-title");
@@ -192,9 +193,8 @@ const openMenuPopup = async () => {
       "https://www.themealdb.com/api/json/v1/1/search.php?s="
     );
     const response = await data.json();
-
     if (!response.meals) {
-      menuCard.innerHTML = `
+      menuCardContent.innerHTML = `
         <h2>Recipe Collection</h2>
         <p>No recipes found!</p>
       `;
@@ -223,15 +223,17 @@ const openMenuPopup = async () => {
       .join("");
 
     // Render the generated content
-    menuCard.innerHTML = `
+    menuCardContent.innerHTML = `
       <h2>Recipe Collection</h2>
       ${recipeList}
     `;
   } catch (error) {
     console.error("Error fetching recipes:", error);
-    menuCard.innerHTML = `<p>Failed to load recipes. Please try again later.</p>`;
+    menuCardContent.innerHTML = `<p>Failed to load recipes. Please try again later.</p>`;
   }
 };
+
+
 
 buttonReipes.addEventListener("click", (e) => {
   e.preventDefault();
@@ -243,11 +245,14 @@ buttonReipes.addEventListener("click", (e) => {
   menuCard.style.display = "block";
   featureButtons.style.marginTop = "5rem";
   footerContent.style.marginTop = "41rem";
-  buttonReipes.style.hoverColor = "active";
-  // menuCloseBtn.style.display = 'block'
+  customMealPlanContainer.style.display = "none";
   openMenuPopup();
 });
-const menuCloseBtn = document.querySelector(".menu-close-btn");
+
+const menuCloseBtn = document.querySelector(".menu-close-btn").addEventListener('click', () => {
+  menuCard.style.display = "none";
+  // openMenuPopup();
+})
 
 recipeCloseBtn.addEventListener("DOMContentLoaded", () => {
   menuCard.style.display = "none";
@@ -469,3 +474,237 @@ arrows[1].addEventListener("click", () => {
 // Initialize hero banner with the first recipe
 
 updateHeroBanner(currentRecipeIndex);
+
+
+
+// Get the button element
+const customMealPlanBtn = document.querySelector('#customMealPlanBtn');
+const customMealPlanContainer = document.querySelector('.custom-meal-container');
+
+// Add a click event listener
+customMealPlanBtn.addEventListener('click', () => {
+  recipeContainer.style.display = "none";
+  resultCards.style.display = "none";
+  recommendedTitle.style.display = "none";
+  loadMoreBtn.style.display = "none";
+  heroBanner.style.display = "none";
+  featureButtons.style.marginTop = "5rem";
+  footerContent.style.marginTop = "31rem";
+  customMealPlanContainer.style.display = "block"; 
+  recipeDetails.style.display = "none";
+});
+
+
+document.querySelector(".custom-meal-container-close-btn").addEventListener('click', () => {
+  customMealPlanContainer.style.display = "none"
+})
+
+// Meal options
+
+// Meal options for each category
+const meals = {
+  vegetarian: {
+    breakfast: "Avocado Toast with Fruits",
+    lunch: "Grilled Vegetable Wrap",
+    dinner: "Pasta Primavera"
+  },
+  vegan: {
+    breakfast: "Smoothie Bowl",
+    lunch: "Quinoa Salad",
+    dinner: "Stir-Fried Tofu and Vegetables"
+  },
+  "non-vegetarian": {
+    breakfast: "Egg and Cheese Sandwich",
+    lunch: "Chicken Caesar Salad",
+    dinner: "Grilled Salmon with Rice"
+  }
+};
+
+
+// Get the meal plan container and diet select element
+const dietSelect = document.querySelector("#diet");
+const generateBtn = document.querySelector(".generate-plane");
+const breakfastSpan = document.querySelector("#breakfast");
+const lunchSpan = document.querySelector("#lunch");
+const dinnerSpan = document.querySelector("#dinner");
+
+// Event listener for selecting diet preference
+dietSelect.addEventListener("change", () => {
+  const selectedDiet = dietSelect.value;
+
+  // Get the selected meal plan based on the diet
+  const selectedMeals = meals[selectedDiet];
+
+  // Display meal plan for selected diet
+  breakfastSpan.textContent = selectedMeals.breakfast;
+  lunchSpan.textContent = selectedMeals.lunch;
+  dinnerSpan.textContent = selectedMeals.dinner;
+});
+
+generateBtn.addEventListener("click", () => {
+  const selectedDiet = dietSelect.value;
+
+  if (!meals[selectedDiet]) {
+    alert("Invalid category selected. Please try again.");
+    return;
+  }
+  // Display meal plan for selected diet
+
+  const selectedMeals = meals[selectedDiet];
+  breakfastSpan.textContent = selectedMeals.breakfast || "N/A";
+  lunchSpan.textContent = selectedMeals.lunch || "N/A";
+  dinnerSpan.textContent = selectedMeals.dinner || "N/A";
+});
+
+// === DOM Elements ===
+const shareRecipeBtn = document.querySelector(".button-share-recipe"); // Button to open "Share Your Recipe" form
+const shareRecipeContainer = document.querySelector(".share-recipe-container"); // Form container
+const closeShareRecipeBtn = document.querySelector(".close-share-recipe"); // Button to close the form
+const recipeForm = document.querySelector("#recipeForm"); // Recipe submission form
+const recipesContainer = document.querySelector("#mealPlan"); // Where shared recipes will be displayed
+
+// Optional UI Elements (for hiding/showing other parts of the page)
+const socialMediaLinks = document.querySelector(".social-media-links");
+
+// === Event Listeners ===
+
+// 1. Open the "Share Recipe" Form
+shareRecipeBtn.addEventListener("click", () => {
+  // Show the form container
+  shareRecipeContainer.style.display = "block";
+
+  // Hide other elements
+  recipeContainer.style.display = "none";
+  resultCards.style.display = "none";
+  recommendedTitle.style.display = "none";
+  loadMoreBtn.style.display = "none";
+  heroBanner.style.display = "none";
+  featureButtons.style.marginTop = "5rem";
+  footerContent.style.marginTop = "31rem";
+  footerContent.style.display = "none";
+  socialMediaLinks.style.display = "none";
+  featureButtons.style.display = "none";
+});
+
+// 2. Close the "Share Recipe" Form
+closeShareRecipeBtn.addEventListener("click", () => {
+  shareRecipeContainer.style.display = "none";
+});
+
+const instructionsError= document.querySelector(".instructions-error");
+const ingredeintsError= document.querySelector(".ingredients-error");
+const recipeNameError= document.querySelector(".recipe-name-error");
+
+function errorMessage() {
+ let hasError = false; // Initialize flag for tracking errors
+ // Validate Instructions
+
+ if (instructions.value.trim() === "") {
+   instructionsError.textContent = "This field is required";
+   instructionsError.style.color = "red";
+   hasError = true;
+  } else if (instructions.value.length > 10) {
+  instructionsError.textContent = "Instructions should at least 10 characters long";
+  hasError = true;
+   } else {
+   instructionsError.textContent = "";
+ }
+
+ if (ingredients.value.trim() === "") {
+   ingredeintsError.textContent = "This field is required";
+   ingredeintsError.style.color = "red";
+   hasError = true;
+ } else if (ingredients.value.length > 10) {
+   ingredeintsError.textContent = "Ingredients should at least 10 characters long";
+   hasError = true;
+ } else {
+   ingredeintsError.textContent = "";
+ }
+
+ if (recipeName.value.trim() === "") {
+   recipeNameError.textContent = "This field is required";
+   recipeNameError.style.color = "red";
+   hasError = true;
+ } else if (recipeName.value.length > 3) {
+   recipeNameError.textContent = "Recipe Name should at least 3 characters long";
+   hasError = true;
+ } else {
+   recipeNameError.textContent = "";
+ }
+
+ return hasError;
+}
+
+// 3. Handle Recipe Submission
+recipeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const hasError =  errorMessage();
+	// const hasError = errorMessage();
+  if(!hasError){
+  alert("Recipe shared successfully!");
+  }
+  
+  
+
+
+
+
+  // Get user input
+  const recipeName = document.querySelector("#recipeName").value;
+  const ingredients = document.querySelector("#ingredients").value;
+  const instructions = document.querySelector("#instructions").value;
+
+  // Validate input
+  // if (!recipeName || !ingredients || !instructions) {
+  //   alert("Please fill out all fields.");
+  //   return;
+  // }
+
+  // Create a new recipe object
+  const newRecipe = {
+    name: recipeName,
+    ingredients: ingredients.split(",").map((item) => item.trim()),
+    instructions: instructions,
+  };
+
+  // Display the recipe (Append it to the DOM)
+  recipesContainer.innerHTML += `
+    <div class="shared-recipe">
+      <h3>${newRecipe.name}</h3>
+      <p><strong>Ingredients:</strong> ${newRecipe.ingredients.join(", ")}</p>
+      <p><strong>Instructions:</strong> ${newRecipe.instructions}</p>
+    </div>
+  `;
+
+  saveRecipeToLocalStorage(newRecipe);
+
+  // Show a success message
+
+
+});
+
+// === Helper Functions ===
+
+// Save a recipe to localStorage
+function saveRecipeToLocalStorage(recipe) {
+  const existingRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
+  existingRecipes.push(recipe);
+  localStorage.setItem("recipes", JSON.stringify(existingRecipes));
+}
+
+// Retrieve recipes from localStorage
+function getRecipesFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("recipes")) || [];
+}
+
+
+
+
+
+
+
+
+
+
+
+
