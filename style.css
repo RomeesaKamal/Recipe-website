@@ -322,7 +322,17 @@ span {
   padding: 30px;
 }
 
-.menu-card-content h2{
+
+
+.menu-category-card{
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 15px 30px;
+}
+
+.menu-card h2{
   color: #cf0707;
   margin-top: 25px;
   text-align: center;
@@ -331,10 +341,17 @@ span {
   font-size: 40px;
 }
 
-.menu-catogry{
-  padding: 15px 30px;
+.menu-category{
+  display: grid;
   color: #28a745;
   font-weight: 400;
+  margin-bottom: 10px;
+}
+
+
+.menu-category:hover {
+  text-decoration: underline;
+  color: #53a02f;
 }
 
 .menu-card-content p{
@@ -345,11 +362,25 @@ span {
   font-size: 30px;
 }
 
-.menu-card-content ul{
+.recipe-list{
+  display: flex;
+  /* gap: 25px; */
   color: #131212;
-  padding: 10px 50px;
   list-style: circle;
   font-size: 25px;
+}
+
+.recipe-list li{
+  width: 100%;
+  display: flex;
+  /* gap: 90px; */
+}
+
+
+.recipe-list li:hover {
+  /* display: inline-block;  */
+  color: #000;
+  font-weight: bold;
 }
 
 .menu-card::-webkit-scrollbar{
@@ -357,7 +388,7 @@ span {
 }
 
 .menu-card::-webkit-scrollbar-thumb{
-background: #d4caca;
+background: #b1a7a7;
 border-radius: 4px;
 --webkit-border-radius:16px;
 }
@@ -368,7 +399,7 @@ border-radius: 4px;
   color: #fff;
   background-color: red;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 20px;
   top: 20px;
   right: 20px;
@@ -379,6 +410,8 @@ border-radius: 4px;
   transition: 0.3s ease all;
   transform: scale(1.05);
 }
+
+
 
 /* Focus outline for accessibility */
 
@@ -477,10 +510,13 @@ padding: 20px 70px;
 /* Custom Meal Plane Styling */
 
 .custom-meal-container {
+  top: 50%;
+  left: 50%;
   display: none;
-  position: relative;
+  position: fixed;
+  transform: translate(-50%, -50%);
   width: 60%;
-  height: 60%;
+  height: 70%;
   margin: 50px auto;
   background: #d1cfcf;
   padding: 30px;

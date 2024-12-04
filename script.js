@@ -1,4 +1,62 @@
-// Fuction to get Genrated Recipes
+// // Fuction to get Genrated Recipes
+
+// const searchBox = document.querySelector(".search-box");
+// const searchBtn = document.querySelector(".search-btn");
+// const recipeTitle = document.querySelector(".research-title");
+// const recipeDetails = document.querySelector(".recipe-details");
+// const resultCards = document.querySelector(".result-cards");
+
+// const fetchResultantRecipes = async (query) => {
+//   recipeTitle.style.display = "block";
+//   resultCards.innerHTML = "<h2>Fetching Recipe......</h2>";
+
+//   const data = await fetch(
+//     ` https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
+//   );
+//   const response = await data.json();
+//   resultCards.innerHTML = "";
+//   response.meals.forEach((meal) => {
+//     // Creating Result card Div
+
+//     const resultCard = document.createElement("div");
+//     resultCard.classList.add("result-card");
+//     // Add the recipe image
+
+//     resultCard.innerHTML = `
+//   <img src="${meal.strMealThumb}">
+// `;
+//     // Create card content div
+
+//     const cardContent = document.createElement("div");
+//     cardContent.classList.add("card-content");
+//     cardContent.innerHTML = `
+//   <p>${meal.strArea}   Dish</p>
+//   <h2>${meal.strMeal}  <span>
+//                 <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+//               </span></h2>
+//               <h3>
+//        ${meal.strCategory}<span>
+//                 <i class="fa-regular fa-heart"></i
+//                 ><i class="fa-regular fa-comment"></i>
+//               </span>
+//             </h3>         
+// `;
+//     // Creating Button
+
+//     const button = document.createElement("button");
+//     button.textContent = "View Recipe";
+//     cardContent.appendChild(button);
+
+//     // Adiing an event listner
+
+//     button.addEventListener("click", () => {
+//       openRecipePopup(meal);
+//     });
+
+//     resultCards.appendChild(resultCard);
+//     resultCard.appendChild(cardContent);
+//   });
+// };
 
 const searchBox = document.querySelector(".search-box");
 const searchBtn = document.querySelector(".search-btn");
@@ -7,56 +65,82 @@ const recipeDetails = document.querySelector(".recipe-details");
 const resultCards = document.querySelector(".result-cards");
 
 const fetchResultantRecipes = async (query) => {
+  if (!query.trim()) {
+    resultCards.innerHTML = "<h2>Please enter a search term.</h2>";
+    recipeTitle.style.display = "none"; // Hide the title if no query
+    return;
+  }
+
   recipeTitle.style.display = "block";
   resultCards.innerHTML = "<h2>Fetching Recipe......</h2>";
 
-  const data = await fetch(
-    ` https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
-  );
-  const response = await data.json();
-  resultCards.innerHTML = "";
-  response.meals.forEach((meal) => {
-    // Creating Result card Div
+  try {
+    const data = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
+    );
+    const response = await data.json();
 
-    const resultCard = document.createElement("div");
-    resultCard.classList.add("result-card");
-    // Add the recipe image
+    resultCards.innerHTML = "";
 
-    resultCard.innerHTML = `
-  <img src="${meal.strMealThumb}">
-`;
-    // Create card content div
+    if (!response.meals) {
+      resultCards.innerHTML = "<h2>No recipes found. Try another search!</h2>";
+      return;
+    }
 
-    const cardContent = document.createElement("div");
-    cardContent.classList.add("card-content");
-    cardContent.innerHTML = `
-  <p>${meal.strArea}   Dish</p>
-  <h2>${meal.strMeal}  <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span></h2>
-              <h3>
-       ${meal.strCategory}<span>
-                <i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i>
-              </span>
-            </h3>         
-`;
-    // Creating Button
+    response.meals.forEach((meal) => {
+      // Creating Result card Div
+      const resultCard = document.createElement("div");
+      resultCard.classList.add("result-card");
 
-    const button = document.createElement("button");
-    button.textContent = "View Recipe";
-    cardContent.appendChild(button);
+      // Add the recipe image
+      resultCard.innerHTML = `
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+      `;
 
-    // Adiing an event listner
+      // Create card content div
+      const cardContent = document.createElement("div");
+      cardContent.classList.add("card-content");
+      cardContent.innerHTML = `
+        <p>${meal.strArea} Dish</p>
+        <h2>${meal.strMeal}  
+          <span>
+            <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+          </span>
+        </h2>
+        <h3>
+          ${meal.strCategory}
+          <span>
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-regular fa-comment"></i>
+          </span>
+        </h3>
+      `;
 
-    button.addEventListener("click", () => {
-      openRecipePopup(meal);
+      // Creating Button
+      const button = document.createElement("button");
+      button.textContent = "View Recipe";
+      cardContent.appendChild(button);
+
+      // Adding an event listener
+      button.addEventListener("click", () => {
+        openRecipePopup(meal);
+      });
+
+      resultCards.appendChild(resultCard);
+      resultCard.appendChild(cardContent);
     });
-
-    resultCards.appendChild(resultCard);
-    resultCard.appendChild(cardContent);
-  });
+  } catch (error) {
+    resultCards.innerHTML = `<h2>Error fetching recipes. Please try again later.</h2>`;
+    console.error("Error fetching recipes:", error);
+  }
 };
+
+// Adding an event listener for the search button
+searchBtn.addEventListener("click", () => {
+  const query = searchBox.value;
+  fetchResultantRecipes(query);
+});
+
 
 // Function To get  Recommended Recipes
 
@@ -176,7 +260,7 @@ searchBtn.addEventListener("click", (e) => {
 
 fetchRecipes("chicken");
 
-// Code for Recipe Button
+// // Code for Recipe Button
 
 const buttonReipes = document.querySelector(".button-recipes");
 const menuCard = document.querySelector(".menu-card");
@@ -186,13 +270,14 @@ const footerContent = document.querySelector(".footer-content");
 const recommendedTitle = document.querySelector(".recommended-title");
 
 
+// Function to open the menu popup and fetch recipes
 const openMenuPopup = async () => {
   try {
-    // Fetch all recipes (use the desired query or API URL)
     const data = await fetch(
       "https://www.themealdb.com/api/json/v1/1/search.php?s="
     );
     const response = await data.json();
+
     if (!response.meals) {
       menuCardContent.innerHTML = `
         <h2>Recipe Collection</h2>
@@ -206,7 +291,7 @@ const openMenuPopup = async () => {
       if (!acc[meal.strCategory]) {
         acc[meal.strCategory] = [];
       }
-      acc[meal.strCategory].push(meal.strMeal);
+      acc[meal.strCategory].push(meal);
       return acc;
     }, {});
 
@@ -214,15 +299,24 @@ const openMenuPopup = async () => {
     const recipeList = Object.entries(groupedRecipes)
       .map(
         ([category, meals]) => `
-        <h3 class = "menu-catogry">${category}</h3>
-        <ul>
-          ${meals.map((meal) => `<li>${meal}</li>`).join("")}
-        </ul>
+        <div class="menu-category-card">
+          <h3 class="menu-category" onclick="toggleCategory(this)">${category}</h3>
+          <ul class="recipe-list">
+            ${meals
+              .map(
+                (meal) => `
+              <li onclick="showSelectedRecipe('${meal.strMeal}', '${meal.strMealThumb}', '${meal.strInstructions}')">
+                ${meal.strMeal}
+              </li>`
+              )
+              .join("")}
+          </ul>
+        </div>
       `
       )
       .join("");
 
-    // Render the generated content
+    // Render the content
     menuCardContent.innerHTML = `
       <h2>Recipe Collection</h2>
       ${recipeList}
@@ -233,19 +327,16 @@ const openMenuPopup = async () => {
   }
 };
 
+// Toggle function for categories
+function toggleCategory(categoryElement) {
+  const ul = categoryElement.nextElementSibling;
+  ul.style.display = ul.style.display === "none" ? "flex" : "none";
+}
 
-
+// Event listener for opening the menu
 buttonReipes.addEventListener("click", (e) => {
   e.preventDefault();
-  recipeContainer.style.display = "none";
-  resultCards.style.display = "none";
-  recommendedTitle.style.display = "none";
-  loadMoreBtn.style.display = "none";
-  heroBanner.style.display = "none";
   menuCard.style.display = "block";
-  featureButtons.style.marginTop = "5rem";
-  footerContent.style.marginTop = "41rem";
-  customMealPlanContainer.style.display = "none";
   openMenuPopup();
 });
 
@@ -396,6 +487,7 @@ const fetchAndDisplayRecipesByCategory = async (category) => {
 };
 
 // Add change event listener to select dropdown
+
 select.addEventListener("change", (e) => {
   const selectedCategory = e.target.value;
   if (selectedCategory) {
@@ -404,6 +496,8 @@ select.addEventListener("change", (e) => {
     resultCards.innerHTML = "<p>Please select a category to view recipes.</p>";
   }
 });
+
+
 
 // Populate categories on page load
 
@@ -458,6 +552,7 @@ const updateHeroBanner = (index) => {
 };
 
 // Event listeners for navigation arrows
+
 arrows[0].addEventListener("click", () => {
   // Navigate to the previous recipe
   currentRecipeIndex =
@@ -482,16 +577,9 @@ const customMealPlanBtn = document.querySelector('#customMealPlanBtn');
 const customMealPlanContainer = document.querySelector('.custom-meal-container');
 
 // Add a click event listener
+
 customMealPlanBtn.addEventListener('click', () => {
-  recipeContainer.style.display = "none";
-  resultCards.style.display = "none";
-  recommendedTitle.style.display = "none";
-  loadMoreBtn.style.display = "none";
-  heroBanner.style.display = "none";
-  featureButtons.style.marginTop = "5rem";
-  footerContent.style.marginTop = "31rem";
   customMealPlanContainer.style.display = "block"; 
-  recipeDetails.style.display = "none";
 });
 
 
@@ -572,18 +660,6 @@ const socialMediaLinks = document.querySelector(".social-media-links");
 shareRecipeBtn.addEventListener("click", () => {
   // Show the form container
   shareRecipeContainer.style.display = "block";
-
-  // Hide other elements
-  recipeContainer.style.display = "none";
-  resultCards.style.display = "none";
-  recommendedTitle.style.display = "none";
-  loadMoreBtn.style.display = "none";
-  heroBanner.style.display = "none";
-  featureButtons.style.marginTop = "5rem";
-  footerContent.style.marginTop = "31rem";
-  footerContent.style.display = "none";
-  socialMediaLinks.style.display = "none";
-  featureButtons.style.display = "none";
 });
 
 // 2. Close the "Share Recipe" Form
