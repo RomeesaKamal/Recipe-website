@@ -4,6 +4,7 @@ const searchBox = document.querySelector(".search-box");
 const searchBtn = document.querySelector(".search-btn");
 const recipeTitle = document.querySelector(".research-title");
 const recipeDetails = document.querySelector(".recipe-details");
+const popup = document.querySelector('.popup');
 const resultCards = document.querySelector(".result-cards");
 
 const fetchResultantRecipes = async (query) => {
@@ -12,11 +13,11 @@ const fetchResultantRecipes = async (query) => {
     recipeTitle.style.display = "none"; // Hide the title if no query
     return;
   }
-
+ 
   recipeTitle.style.display = "block";
   resultCards.innerHTML = "<h2>Fetching Recipe......</h2>";
 
-  try {
+  try{
     const data = await fetch(
       `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
     );
@@ -77,11 +78,8 @@ const fetchResultantRecipes = async (query) => {
   }
 };
 
-// Adding an event listener for the search button
-searchBtn.addEventListener("click", () => {
-  const query = searchBox.value;
-  fetchResultantRecipes(query);
-});
+
+
 
 
 // Function To get  Recommended Recipes
@@ -189,18 +187,20 @@ recipeCloseBtn.addEventListener("click", () => {
 });
 
 
-
 //  Search Button Functionality
 
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const searchInput = searchBox.value.trim();
   fetchResultantRecipes(searchInput);
+  console.log(fetchResultantRecipes);
 });
 
 // FetchRecipes on page load
 
-fetchRecipes("chicken");
+fetchRecipes("cake");
+
+
 
 // // Code for Recipe Button
 
@@ -437,7 +437,11 @@ select.addEventListener("change", (e) => {
   } else {
     resultCards.innerHTML = "<p>Please select a category to view recipes.</p>";
   }
+  console.log(fetchAndDisplayRecipesByCategory);
+  
 });
+
+
 
 
 
@@ -710,10 +714,129 @@ function saveRecipeToLocalStorage(recipe) {
   localStorage.setItem("recipes", JSON.stringify(existingRecipes));
 }
 
+
+
 // Retrieve recipes from localStorage
 function getRecipesFromLocalStorage() {
   return JSON.parse(localStorage.getItem("recipes")) || [];
 }
+
+const addItemBtn = document.getElementById('add-item-btn');
+const groceryList = document.getElementById('grocery-list');
+
+addItemBtn.addEventListener('click', () => {
+  const item = prompt('Enter a grocery item:');
+  if (item) {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${item}`;
+    listItem.classList.add("list-items")
+
+
+    const removeBtn = document.createElement('button');
+    removeBtn.innerHTML = `
+            <i class="fas fa-times"></i>
+    `;
+    removeBtn.classList.add('remove-btn');
+    removeBtn.addEventListener('click', () => listItem.remove());
+
+    listItem.appendChild(removeBtn);
+    groceryList.appendChild(listItem);
+  }
+});
+
+document.querySelector('.button-grocery-list').addEventListener('click', (e) => {
+  e.preventDefault();
+document.querySelector('.grocery-list-container').style.display = 'block'
+})
+
+document.querySelector('.grocery-list-close-btn').addEventListener('click', () => {
+document.querySelector('.grocery-list-container').style.display = 'none'
+})
+
+
+
+        
+
+const tips = {
+  "General Cooking Tips": [
+    "Rescue Over-Salted Soups: Add a peeled raw potato to absorb excess salt.",
+    "Perfect Boiled Eggs: Add a teaspoon of vinegar to prevent eggshells from cracking while boiling.",
+    "Crispy Fried Foods: Use cold batter for extra crunch.",
+    "Enhance Spices: Toast whole spices before grinding to unlock their full flavor.",
+    "Keep Lettuce Crisp: Wrap it in paper towels before storing to absorb moisture.",
+    "Ripen Bananas Quickly: Place them in a brown paper bag with an apple or a ripe banana.",
+    "Peeling Garlic Quickly: Crush the clove with the flat side of a knife and the peel will slide off easily."
+  ],
+  "Baking Tips": [
+    "Room Temperature Ingredients: For fluffier cakes, ensure butter, eggs, and milk are at room temperature before mixing.",
+    "Prevent Cake Sticking: Dust your greased baking pan with flour or cocoa powder for a non-stick finish.",
+    "Soft Brown Sugar: Place a slice of bread or a marshmallow in your brown sugar container to keep it soft.",
+    "Measure Flour Properly: Spoon flour into the measuring cup and level it off with a knife for accuracy."
+  ],
+  "Food Storage Tips": [
+    "Freeze Fresh Herbs: Chop herbs, place them in ice cube trays, and fill with olive oil or water for quick cooking portions.",
+    "Revive Wilted Greens: Soak them in ice water for 30 minutes to bring back their crispness.",
+    "Cheese Storage: Wrap hard cheeses in parchment paper instead of plastic to allow them to breathe and avoid mold.",
+    "Bananas in the Fridge: Separate them from the bunch to slow down ripening."
+  ],
+  "Time-Saving Tips": [
+    "Prep Ingredients Ahead: Chop vegetables and portion spices in advance to save time during cooking.",
+    "Faster Marinades: Poke small holes in meat or place it in a vacuum-sealed bag for quicker absorption.",
+    "Freeze Leftovers in Portions: Use small containers for easy reheating later."
+  ],
+  "Healthy Cooking Tips": [
+    "Reduce Oil in Soups: Skim the fat with a paper towel or refrigerate and remove the solidified fat layer.",
+    "Bake Instead of Fry: For a healthier twist, bake items like chicken or fries instead of deep frying.",
+    "Use Yogurt Instead of Cream: Swap heavy cream with Greek yogurt for a healthier, tangy alternative."
+  ],
+  "Special Tricks": [
+    "Keep Rice from Sticking: Add a few drops of oil or a squeeze of lemon juice to the boiling water.",
+    "Juice Lemons Easily: Microwave them for 15 seconds to extract more juice.",
+    "Chop Onions Tear-Free: Chill them in the freezer for 10 minutes before cutting.",
+    "Non-Sticky Pasta: Stir pasta frequently and avoid adding oil to the water."
+  ]
+};
+
+const tipsBtn = document.querySelector('#tips-btn');
+const tipCard = document.querySelector('#tip-card');
+const tipText = document.querySelector('#tip-text');
+const tipcontainer = document.querySelector('.cooking-tips-container');
+const tipButton = document.querySelector('.button-cooking-tips');
+
+// Show a random tip when the button is clicked
+tipsBtn.addEventListener('click', () => {
+  const categories = Object.keys(tips); // Get all categories
+  const randomCategory = categories[Math.floor(Math.random() * categories.length)]; // Random category
+  const categoryTips = tips[randomCategory]; // Tips under the selected category
+  const randomTip = categoryTips[Math.floor(Math.random() * categoryTips.length)]; // Random tip
+  tipText.innerHTML = `<strong>${randomCategory}</strong>: ${randomTip}`; // Add heading and tip
+
+  // Slide in the tip card
+  tipCard.classList.remove('hidden');
+  setTimeout(() => {
+    tipCard.classList.add('active');
+  }, 100);
+});
+ console.log(tipsBtn)
+
+tipButton.addEventListener('click', () => {
+  tipcontainer.style.display = 'block'
+})
+document.querySelector('.cooking-tips-close-btn').addEventListener('click', () => {
+  tipcontainer.style.display = 'none'
+
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 

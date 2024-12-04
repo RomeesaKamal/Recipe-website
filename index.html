@@ -76,6 +76,7 @@
           <span><i class="fa-solid fa-arrow-right"></i></span>
         </div>
       </div>
+
       <div class="feature-buttons">
     <div class="button-recipes">Recipes and Menu <span>></span></div>
         <div class="button-share-recipe">Share your Recipe <span>></span></div>
@@ -83,11 +84,11 @@
         </div>
        
         <div class="button-grocery-list">Create Grocery List<span>></span></div>
-        <div class="button-cooking-tips">
+        <div class="button-cooking-tips" id="tip-btn">
           Cooking Tips and Tricks<span>></span>
         </div>
       </div>
-    </div>
+    
 
       <div class="menu-card">
         <div class="menu-card-content"></div>
@@ -95,6 +96,29 @@
           <i class="fas fa-times"></i>
         </button>
         </div>
+
+        <div class="grocery-list-container">
+          <button type="button" class="grocery-list-close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <h1>Grocery List</h1>
+          <button id="add-item-btn">Create Grocery List</button>
+          <ul id="grocery-list">
+          </ul>
+        </div>
+        
+        <div class="cooking-tips-container">
+          <h1>Cooking Tips and Tricks</h1>
+          <button type="button" class="cooking-tips-close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <button id="tips-btn">Show Cooking Tips</button>
+          <div id="tip-card" class="hidden">
+            <p id="tip-text"></p>
+          </div>
+        </div>
+  
+ 
       
 
         <div class="recipe-details">
@@ -103,7 +127,7 @@
           </button>
           <div class="recipe-details-content"></div>
         </div>
-      </div>
+      
 
 
 <!-- Share Recipe Form (Initially Hidden) -->
@@ -153,15 +177,13 @@
                 <li><strong>Dinner:</strong> <span id="dinner"></span></li>
             </ul>
         </div>
-         
+      </div>
+
       <div class="result-section">
         <h2 class="research-title">Generated Recipe</h2>
         <div class="result-cards">
           </div>
 
-        </div>
-
-      </div>
       <div class="recommended-section">
         <h1 class="recommended-title">Recommended Recipes</h1>
         <div class="recipe-cards"></div>
