@@ -15,7 +15,7 @@
   </head>
   <body>
     <!-- Header -->
-
+  
     <header>
       <div class="site-header">
         <div class="container flex">
@@ -63,7 +63,8 @@
    
     <main>
       <div class="hero-banner">
-        <div class="hero-banner-content">
+        <div class="hero-container">
+        <div class="hero-banner-content flex">
           <h3>Trending Now</h3>
           <h1>
             Milke's famous salad <br />
@@ -75,6 +76,7 @@
           <span><i class="fa-solid fa-arrow-left"></i></span>
           <span><i class="fa-solid fa-arrow-right"></i></span>
         </div>
+      </div>
       </div>
 
       <div class="feature-buttons">
@@ -88,101 +90,13 @@
           Cooking Tips and Tricks<span>></span>
         </div>
       </div>
-    
-
-      <div class="menu-card">
-        <div class="menu-card-content"></div>
-        <button type="button" class="menu-close-btn">
-          <i class="fas fa-times"></i>
-        </button>
-        </div>
-
-        <div class="grocery-list-container">
-          <button type="button" class="grocery-list-close-btn">
-            <i class="fas fa-times"></i>
-          </button>
-          <h1>Grocery List</h1>
-          <button id="add-item-btn">Create Grocery List</button>
-          <ul id="grocery-list">
-          </ul>
-        </div>
-        
-        <div class="cooking-tips-container">
-          <h1>Cooking Tips and Tricks</h1>
-          <button type="button" class="cooking-tips-close-btn">
-            <i class="fas fa-times"></i>
-          </button>
-          <button id="tips-btn">Show Cooking Tips</button>
-          <div id="tip-card" class="hidden">
-            <p id="tip-text"></p>
-          </div>
-        </div>
-  
- 
-      
-
-        <div class="recipe-details">
-          <button type="button" class="recipe-close-btn">
-            <i class="fas fa-times"></i>
-          </button>
-          <div class="recipe-details-content"></div>
-        </div>
-      
 
 
-<!-- Share Recipe Form (Initially Hidden) -->
-<div class="share-recipe-container" style="display: none;">
-  <h2>Share Your Recipe</h2>
-  <button class="close-share-recipe"><i class="fas fa-times"></i></button>
-  <div class="succes-message-container"></div>
-  <form id="recipeForm">
-    <label for="recipeName">Recipe Name:</label>
-    <input type="text" id="recipeName" placeholder="Enter recipe name"/>
-    <p class="recipe-name-error"></p>
-
-    <label for="ingredients">Ingredients:</label>
-    <textarea id="ingredients" placeholder="List ingredients, separated by commas"></textarea>
-    <p class="ingredients-error"></p>
-
-    <label for="instructions">Instructions:</label>
-    <textarea id="instructions" placeholder="Write cooking instructions"></textarea>
-    <p class="instructions-error"></p>
-
-    <button type="submit" id="submitRecipe">Submit Recipe</button>
-    
-  </form>
-</div>
-
-
-      <div class="custom-meal-container">
-        <h1>Custom Meal Plan Generator</h1>
-        <button type="button" class="custom-meal-container-close-btn">
-          <i class="fas fa-times"></i>
-        </button>
-        <form id="mealForm">
-            <label for="diet" id="#label">Select Your Diet Preference:</label>
-            <select id="diet" name="diet">
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="non-vegetarian">Non-Vegetarian</option>
-            </select>
-        </form>
-            <button type="button" class="generate-plane">Generate Plane</button>
-              
-        <div id="mealPlan">
-            <h2>Your Meal Plan:</h2>
-            <ul>
-                <li><strong>Breakfast:</strong> <span id="breakfast"></span></li>
-                <li><strong>Lunch:</strong> <span id="lunch"></span></li>
-                <li><strong>Dinner:</strong> <span id="dinner"></span></li>
-            </ul>
-        </div>
-      </div>
-
+     
       <div class="result-section">
         <h2 class="research-title">Generated Recipe</h2>
-        <div class="result-cards">
-          </div>
+        <div class="result-cards"></div>
+        </div>
 
       <div class="recommended-section">
         <h1 class="recommended-title">Recommended Recipes</h1>
@@ -255,6 +169,124 @@
         <a href=""><i class="fa-brands fa-instagram"></i> </a>
         <a href=""><i class="fa-brands fa-linkedin-in"></i> </a>
       </div>
+    
+
+      <!-- Cards -->
+
+      <div class="menu-card">
+        <div class="menu-card-content"></div>
+        <button type="button" class="menu-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+        </div>
+
+        <div class="grocery-list-container">
+          <button type="button" class="grocery-list-close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <h1>Grocery List</h1>
+          <button id="add-item-btn">Create Grocery List</button>
+          <ul id="grocery-list">
+          </ul>
+        </div>
+        
+        <div class="cooking-tips-container">
+          <h1>Cooking Tips and Tricks</h1>
+          <button type="button" class="cooking-tips-close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <button id="tips-btn">Show Cooking Tips</button>
+          <div id="tip-card" class="hidden">
+            <p id="tip-text"></p>
+          </div>
+        </div>
+
+        <div id="comment-popup" class="popup hidden">
+          <div class="popup-content">
+            <button id="close-popup" class="close-popup">×</button>
+            <h2>Add a Comment</h2>
+            <form id="comment-form">
+              <input type="text" id="user-name" placeholder="Your Name" required />
+              <textarea id="user-comment" placeholder="Write your comment here..." required></textarea>
+              <button type="submit">Submit</button>
+            </form>
+
+            <h3 class="comments-list-heading">Comments</h3>
+            <div id="comments-list">
+              <!-- Existing comments will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="recipe-details">
+          <button type="button" class="recipe-close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+          <div class="recipe-details-content"></div>
+        </div>
+      
+<!-- Share Recipe Form (Initially Hidden) -->
+<div class="share-recipe-container" style="display: none;">
+  <h2>Share Your Recipe</h2>
+  <button class="close-share-recipe"><i class="fas fa-times"></i></button>
+  <div class="succes-message-container"></div>
+  <form id="recipeForm">
+    <label for="recipeName">Recipe Name:</label>
+    <input type="text" id="recipeName" placeholder="Enter recipe name"/>
+    <p class="recipe-name-error"></p>
+
+    <label for="ingredients">Ingredients:</label>
+    <textarea id="ingredients" placeholder="List ingredients, separated by commas"></textarea>
+    <p class="ingredients-error"></p>
+
+    <label for="instructions">Instructions:</label>
+    <textarea id="instructions" placeholder="Write cooking instructions"></textarea>
+    <p class="instructions-error"></p>
+
+    <button type="submit" id="submitRecipe">Submit Recipe</button>
+  </form>
+</div>
+
+      <div class="custom-meal-container">
+        <h1>Custom Meal Plan Generator</h1>
+        <button type="button" class="custom-meal-container-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+        <form id="mealForm">
+            <label for="diet" id="#label">Select Your Diet Preference:</label>
+            <select id="diet" name="diet">
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="non-vegetarian">Non-Vegetarian</option>
+            </select>
+        </form>
+            <button type="button" class="generate-plane">Generate Plane</button>
+            <div id="mealPlan">
+              <h2>Your Meal Plan:</h2>
+              <ul>
+                  <li><strong>Breakfast:</strong> <span id="breakfast"></span></li>
+                  <li><strong>Lunch:</strong> <span id="lunch"></span></li>
+                  <li><strong>Dinner:</strong> <span id="dinner"></span></li>
+              </ul>
+          </div>
+      </div>
+<!-- Hamburger Icon -->
+<div class="hamburger" onclick="toggleMenu()">
+  &#9776; <!-- Unicode for the hamburger icon -->
+</div>
+
+<!-- Hidden Menu -->
+<div class="mobile-menu">
+  <div class="feature-buttons" id="featureBtn">
+    <div class="button-recipes" id="recipBtn">Recipes and Menu <span>></span></div>
+        <div class="button-share-recipe"id="shareBtn">Share your Recipe <span>></span></div>
+        <div class="button-custom-meal" id="customBtn">Custom Meal Plane <span>></span></div>
+        <div class="button-grocery-list"id="groceryBtn">Create Grocery List<span>></span></div>
+        <div class="button-cooking-tips" id="tipBtn">
+          Cooking Tips and Tricks<span>></span>
+        </div>
+      </div>
+</div>
 
     <script src="script.js"></script>
   </body>

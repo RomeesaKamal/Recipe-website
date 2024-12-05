@@ -7,134 +7,254 @@ const recipeDetails = document.querySelector(".recipe-details");
 const popup = document.querySelector('.popup');
 const resultCards = document.querySelector(".result-cards");
 
+
+// Function to fetch resultant recipes
 const fetchResultantRecipes = async (query) => {
   if (!query.trim()) {
-    resultCards.innerHTML = "<h2>Please enter a search term.</h2>";
+    resultCards.innerHTML = "<h2 class= 'error'>Please enter a search term.</h2>";
     recipeTitle.style.display = "none"; // Hide the title if no query
     return;
   }
- 
-  recipeTitle.style.display = "block";
-  resultCards.innerHTML = "<h2>Fetching Recipe......</h2>";
 
-  try{
-    const data = await fetch(
+  recipeTitle.style.display = "block";
+  resultCards.innerHTML = "<h2>Fetching Recipe...</h2>";
+
+  try {
+    const response = await fetch(
       `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
     );
-    const response = await data.json();
+    const data = await response.json();
 
     resultCards.innerHTML = "";
 
-    if (!response.meals) {
-      resultCards.innerHTML = "<h2>No recipes found. Try another search!</h2>";
+    // Handle no recipes found
+    if (!data.meals) {
+      resultCards.innerHTML = "<h2 class='erroe'>No recipes found. Try another search!</h2>";
       return;
     }
 
-    response.meals.forEach((meal) => {
-      // Creating Result card Div
+    data.meals.forEach((meal) => {
+      // Create Result Card
       const resultCard = document.createElement("div");
       resultCard.classList.add("result-card");
 
-      // Add the recipe image
+      // Add Recipe Image
       resultCard.innerHTML = `
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
       `;
 
-      // Create card content div
+      // Create Card Content
       const cardContent = document.createElement("div");
       cardContent.classList.add("card-content");
       cardContent.innerHTML = `
         <p>${meal.strArea} Dish</p>
         <h2>${meal.strMeal}  
           <span>
-            <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
+            <i class="fa-solid fa-star rate-star" data-rating="0" style="color: #ffd43b; cursor: pointer;"></i>
+            <span class="rating-value">0.0</span>
           </span>
         </h2>
         <h3>
           ${meal.strCategory}
           <span>
-            <i class="fa-regular fa-heart"></i>
-            <i class="fa-regular fa-comment"></i>
+            <i class="fa-regular fa-heart like-icon" style="cursor: pointer;"></i>
+            <span class="like-count">0</span>
+            <i class="fa-regular fa-comment comment-icon" style="cursor: pointer;"></i>
           </span>
         </h3>
+        <div class="comments">
+          <!-- User comments will be dynamically added here -->
+        </div>
       `;
 
-      // Creating Button
+      // Add "View Recipe" Button
       const button = document.createElement("button");
       button.textContent = "View Recipe";
+      button.addEventListener("click", () => openRecipePopup(meal));
       cardContent.appendChild(button);
 
-      // Adding an event listener
-      button.addEventListener("click", () => {
-        openRecipePopup(meal);
-      });
-
-      resultCards.appendChild(resultCard);
+      // Append Card Content
       resultCard.appendChild(cardContent);
+
+      // Bind Functionality (like, rate, comment)
+      bindCardFunctionality(resultCard, meal);
+
+      // Append Result Card to Container
+      resultCards.appendChild(resultCard);
     });
   } catch (error) {
-    resultCards.innerHTML = `<h2>Error fetching recipes. Please try again later.</h2>`;
+    resultCards.innerHTML = `<h2 class ='error'>Error fetching recipes. Please try again later.</h2>`;
     console.error("Error fetching recipes:", error);
   }
 };
 
+// Function to bind card functionality (like, rate, comment)
 
+const bindCardFunction = (card, meal) => {
+  // Like Button
+  const likeIcon = card.querySelector(".like-icon");
+  const likeCount = card.querySelector(".like-count");
+  likeIcon.addEventListener("click", () => {
+    likeIcon.classList.toggle("liked");
+    const isLiked = likeIcon.classList.contains("liked");
+    const currentCount = parseInt(likeCount.innerText, 10);
+    likeCount.innerText = isLiked ? currentCount + 1 : currentCount - 1;
+    likeIcon.style.color = isLiked ? "red" : ""; // Toggle red color
 
+    // Save to LocalStorage
+    saveDataToLocalStorage(meal.idMeal, "likes", parseInt(likeCount.innerText));
+  });
 
+  // Rating Button
+  const rateStar = card.querySelector(".rate-star");
+  const ratingValue = card.querySelector(".rating-value");
+  rateStar.addEventListener("click", () => {
+    const userRating = parseFloat(prompt("Enter your rating (1-5):"));
+    if (userRating >= 1 && userRating <= 5) {
+      const currentRating = parseFloat(ratingValue.innerText);
+      const newRating = (currentRating + userRating) / 2;
+      ratingValue.innerText = newRating.toFixed(1);
 
-// Function To get  Recommended Recipes
+      // Save to LocalStorage
+      saveDataToLocalStorage(meal.idMeal, "rating", newRating.toFixed(1));
+    } else {
+      alert("Please enter a valid rating between 1 and 5.");
+    }
+  });
+
+  // Comment Popup
+  const commentIcon = card.querySelector(".comment-icon");
+  commentIcon.addEventListener("click", () => openCommentPopup(meal.idMeal));
+};
+
+// LocalStorage Utilities
+const saveDataToLocalStorages = (mealId, key, value) => {
+  const data = JSON.parse(localStorage.getItem(mealId)) || {};
+  data[key] = value;
+  localStorage.setItem(mealId, JSON.stringify(data));
+};
+
+const getDataFromLocalStorages = (mealId, key) => {
+  const data = JSON.parse(localStorage.getItem(mealId)) || {};
+  return data[key];
+};
+
+// .....................................................................
+
+// // Function To get  Recommended Recipes
 
 const recipeContainer = document.querySelector(".recipe-cards");
 const recipeDetailsContent = document.querySelector(".recipe-details-content");
 
 const fetchRecipes = async (query) => {
-  const data = await fetch(
-    ` https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
-  );
-  const response = await data.json();
-  recipeContainer.innerHTML = "";
-  response.meals.forEach((meal) => {
-    // Creating Recipe card div
+  try {
+    // Clear any existing recipe cards and show a loading message
+    recipeContainer.innerHTML = "<h2>Loading Recipes...</h2>";
 
-    const recipeDiv = document.createElement("div");
-    recipeDiv.classList.add("recipe-card");
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+    const data = await response.json();
 
-    // Add the recipe image
+    // Handle the case where no recipes are found
+    if (!data.meals || data.meals.length === 0) {
+      recipeContainer.innerHTML = "<p>No recipes found for this query.</p>";
+      return;
+    }
 
-    recipeDiv.innerHTML = `
-  <img src="${meal.strMealThumb}">
-`;
-    // Create card content div
+    // Clear the loading message
+    recipeContainer.innerHTML = "";
 
-    const cardContent = document.createElement("div");
-    cardContent.classList.add("card-content");
-    cardContent.innerHTML = `
-  <p>${meal.strArea}   Dish</p>
-  <h2>${meal.strMeal}  <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span></h2>
-              <h3>
-       ${meal.strCategory}<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>         
-`;
+    // Iterate through each meal and create recipe cards
+    data.meals.forEach((meal) => {
+      const recipeDiv = document.createElement("div");
+      recipeDiv.classList.add("recipe-card");
 
-    // Creating button
+      // Add the recipe image
+      recipeDiv.innerHTML = `
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+      `;
 
-    const button = document.createElement("button");
-    button.textContent = "View Recipe";
-    cardContent.appendChild(button);
+      // Create the card content
+      const cardContent = document.createElement("div");
+      cardContent.classList.add("card-content");
+      cardContent.innerHTML = `
+        <p>${meal.strArea} Dish</p>
+        <h2>${meal.strMeal}  
+          <span>
+            <i class="fa-solid fa-star rate-star" data-rating="0" style="color: #ffd43b; cursor: pointer;"></i>
+            <span class="rating-value">0.0</span>
+          </span>
+        </h2>
+        <h3>
+          ${meal.strCategory}
+          <span>
+            <i class="fa-regular fa-heart like-icon" style="cursor: pointer;"></i>
+            <span class="like-count">0</span>
+            <i class="fa-regular fa-comment comment-icon" style="cursor: pointer;"></i>
+          </span>
+        </h3>
+        <div class="comments"></div>
+      `;
 
-    button.addEventListener("click", () => {
-      openRecipePopup(meal);
+      // Create and append the "View Recipe" button
+      const button = document.createElement("button");
+      button.textContent = "View Recipe";
+      button.addEventListener("click", () => openRecipePopup(meal));
+      cardContent.appendChild(button);
+
+      // Append the card content to the recipe div
+      recipeDiv.appendChild(cardContent);
+
+      // Add functionality for likes, comments, and ratings
+      bindCardFunctionality(recipeDiv, meal);
+
+      // Append the recipe card to the container
+      recipeContainer.appendChild(recipeDiv);
     });
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+    recipeContainer.innerHTML = "<p class = 'error' >Failed to load recipes. Please try again later.</p>";
+  }
+};
+const bindsCardFunctionality = (card, meal) => {
+  // Like button functionality
+  const likeIcon = card.querySelector('.like-icon');
+  const likeCount = card.querySelector('.like-count');
+  likeIcon.addEventListener('click', () => {
+    likeIcon.classList.toggle('liked');
+    const isLiked = likeIcon.classList.contains('liked');
+    const currentCount = parseInt(likeCount.innerText, 10);
+    likeCount.innerText = isLiked ? currentCount + 1 : currentCount - 1;
+    likeIcon.style.color = isLiked ? 'red' : ''; // Toggle red color
 
-    recipeContainer.appendChild(recipeDiv);
-    recipeDiv.appendChild(cardContent);
+    // Save to LocalStorage
+    saveDataToLocalStorage(meal.idMeal, 'likes', parseInt(likeCount.innerText));
+  });
+
+  // Rating functionality
+  const rateStar = card.querySelector('.rate-star');
+  const ratingValue = card.querySelector('.rating-value');
+  rateStar.addEventListener('click', () => {
+    const userRating = parseFloat(prompt('Enter your rating (1-5):'));
+    if (userRating >= 1 && userRating <= 5) {
+      const currentRating = parseFloat(ratingValue.innerText);
+      const newRating = (currentRating + userRating) / 2; // Update to calculate average
+      ratingValue.innerText = newRating.toFixed(1);
+
+      // Save to LocalStorage
+      saveDataToLocalStorage(meal.idMeal, 'rating', newRating.toFixed(1));
+    } else {
+      alert('Please enter a valid rating between 1 and 5.');
+    }
+  });
+
+  // Comment popup functionality
+  const commentIcon = card.querySelector('.comment-icon');
+  commentIcon.addEventListener('click', () => {
+    openCommentPopup(meal.idMeal);
   });
 };
+
+// ............................................................
 
 // Function to fetch ingredients and measurement
 
@@ -162,7 +282,7 @@ const openRecipePopup = (meal) => {
     <h2 class="recipeName">${meal?.strMeal || 'No Name'}</h2>
     <h3 class="ingredientHeading">Ingredients:</h3>
     <ol class="ingredientsList">${
-			fetchIngredients(meal) || '<li>No Ingredients Available</li>'
+			fetchIngredients(meal) || '<li class= "error">No Ingredients Available</li>'
 		}</ol>
     ${
 			youtubeEmbedUrl
@@ -200,7 +320,7 @@ searchBtn.addEventListener("click", (e) => {
 
 fetchRecipes("cake");
 
-
+// ...............................................................................
 
 // // Code for Recipe Button
 
@@ -284,12 +404,13 @@ buttonReipes.addEventListener("click", (e) => {
 
 const menuCloseBtn = document.querySelector(".menu-close-btn").addEventListener('click', () => {
   menuCard.style.display = "none";
-  // openMenuPopup();
 })
 
 recipeCloseBtn.addEventListener("DOMContentLoaded", () => {
   menuCard.style.display = "none";
 });
+
+// .....................................................................
 
 // Fumction for Load More Button
 
@@ -319,14 +440,16 @@ loadMoreBtn.addEventListener("click", async () => {
   if (!newRecipes || newRecipes.length === 0) {
     loadMoreBtn.disabled = true;
     loadMoreBtn.textContent = "No More Recipes";
+    loadMoreBtn.style.color = "red";
+    loadMoreBtn.style.fontSize= "24px";
   } else {
     fetchPaginatedRecipes(newRecipes); // Assuming you have a renderRecipes function
   }
 });
 
+// ...............................................
 
 const select = document.querySelector("#select");
-// const resultCards = document.querySelector(".result-cards");
 
 // Function to fetch recipe categories
 const fetchCategories = async () => {
@@ -370,6 +493,7 @@ async function getRecipeById(id) {
 	}
 };
 
+// ..................................................
 
 // Fetch and display recipes by selected category
 
@@ -396,37 +520,142 @@ const fetchAndDisplayRecipesByCategory = async (category) => {
       resultCard.innerHTML = `
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
         <div class="card-content">
-          <p>${meal.strArea}   Dish</p>
-          <h2>${meal.strMeal}
-           <span>
-                <i class="fa-solid fa-star" style="color: #ffd43b"></i>4.5
-              </span>
+          <p>${meal.strArea || "Unknown"} Dish</p>
+          <h2>
+            ${meal.strMeal}
+            <span>
+              <i class="fa-solid fa-star rate-star" style="color: #ffd43b; cursor: pointer;"></i>
+              <span class="rating-value">0.0</span>
+            </span>
           </h2>
-            <h3>
-                 ${category}<span
-                ><i class="fa-regular fa-heart"></i
-                ><i class="fa-regular fa-comment"></i
-              ></span>
-            </h3>   
+          <h3>
+            ${category}
+            <span>
+              <i class="fa-regular fa-heart like-icon" style="cursor: pointer;"></i>
+              <span class="like-count">0</span>
+              <i class="fa-regular fa-comment comment-icon" style="cursor: pointer;" class = 'comment-icon'></i>
+            </span>
+          </h3>
+          <div class="comments">
+            <!-- User comments will be dynamically added here -->
+          </div>
           <button class="view-recipe-btn">View Recipe</button>
         </div>
       `;
 
-    // Add event listener for "View Recipe" button
-			resultCard
-      .querySelector('.view-recipe-btn')
-      .addEventListener('click', async () => {
-        const mealDetails = await getRecipeById(meal.idMeal);
-        openRecipePopup(mealDetails);
-      });
+     resultCard.querySelector('.view-recipe-btn').addEventListener('click', () => {
+      openRecipePopup(meal);
+     });
+      // Bind functionality to the card
+      bindCardFunctionality(resultCard, meal);
 
+      // Append the card to the container
       resultCards.appendChild(resultCard);
     });
+
   } catch (error) {
     console.error("Error fetching recipes:", error);
     resultCards.innerHTML = "<p>Failed to load recipes. Please try again later.</p>";
   }
 };
+
+const bindCardFunctionality = (card, meal) => {
+  // Like button functionality
+  const likeIcon = card.querySelector('.like-icon');
+  const likeCount = card.querySelector('.like-count');
+  likeIcon.addEventListener('click', () => {
+    likeIcon.classList.toggle('liked');
+    const isLiked = likeIcon.classList.contains('liked');
+    const currentCount = parseInt(likeCount.innerText, 10);
+    likeCount.innerText = isLiked ? currentCount + 1 : currentCount - 1;
+    likeIcon.style.color = isLiked ? 'red' : ''; // Toggle red color
+
+    // Save to LocalStorage
+    saveDataToLocalStorage(meal.idMeal, 'likes', parseInt(likeCount.innerText));
+  });
+
+  // Rating functionality
+  const rateStar = card.querySelector('.rate-star');
+  const ratingValue = card.querySelector('.rating-value');
+  rateStar.addEventListener('click', () => {
+    const userRating = parseFloat(prompt('Enter your rating (1-5):'));
+    if (userRating >= 1 && userRating <= 5) {
+      const currentRating = parseFloat(ratingValue.innerText);
+      const newRating = (currentRating + userRating) / 2; // Update to calculate average
+      ratingValue.innerText = newRating.toFixed(1);
+
+      // Save to LocalStorage
+      saveDataToLocalStorage(meal.idMeal, 'rating', parseFloat(ratingValue.innerText));
+    } else {
+      alert('Please enter a valid rating between 1 and 5.');
+    }
+  });
+
+  // Comment popup functionality
+  const commentIcon = card.querySelector('.comment-icon');
+  commentIcon.addEventListener('click', () => {
+    openCommentPopup(meal.idMeal);
+  });
+};
+
+const openCommentPopup = (mealId) => {
+  const popup = document.getElementById('comment-popup');
+  const commentForm = document.getElementById('comment-form');
+  const commentsList = document.getElementById('comments-list');
+
+  // Load existing comments for this meal
+  const storedComments = getDataFromLocalStorage(mealId, 'comments') || [];
+  commentsList.innerHTML = ""; // Clear any previous comments
+  storedComments.forEach((comment) => {
+    const commentItem = document.createElement('p');
+    commentItem.innerText = `${comment.name}: ${comment.text}`;
+    commentsList.appendChild(commentItem);
+  });
+
+  // Show popup
+  popup.classList.remove('hidden');
+
+  // Close popup
+  document.getElementById('close-popup').addEventListener('click', () => {
+    popup.classList.add('hidden');
+  });
+
+  // Handle new comment submission
+  commentForm.onsubmit = (e) => {
+    e.preventDefault();
+    const userName = document.getElementById('user-name').value;
+    const userComment = document.getElementById('user-comment').value;
+
+    if (userName && userComment) {
+      const newComment = { name: userName, text: userComment };
+      storedComments.push(newComment);
+      saveDataToLocalStorage(mealId, 'comments', storedComments);
+
+      // Add the new comment to the list
+      const commentItem = document.createElement('p');
+      commentItem.innerText = `${newComment.name}: ${newComment.text}`;
+      commentsList.appendChild(commentItem);
+
+      // Clear form fields and reset
+      commentForm.reset();
+    }
+  };
+};
+
+
+// Save to LocalStorage
+const saveDataToLocalStorage = (mealId, key, value) => {
+  const data = JSON.parse(localStorage.getItem(mealId)) || {};
+  data[key] = value;
+  localStorage.setItem(mealId, JSON.stringify(data));
+};
+
+// Get from LocalStorage
+const getDataFromLocalStorage = (mealId, key) => {
+  const data = JSON.parse(localStorage.getItem(mealId)) || {};
+  return data[key];
+};
+
 
 // Add change event listener to select dropdown
 
@@ -441,8 +670,7 @@ select.addEventListener("change", (e) => {
   
 });
 
-
-
+// ......................................................................
 
 
 // Populate categories on page load
@@ -454,6 +682,7 @@ const arrows = document.querySelectorAll(".arrows span");
 const heroBanner = document.querySelector(".hero-banner");
 
 // Trending recipes data
+
 const trendingRecipes = [
   {
     title: "Chicken Biryani Karachi Style",
@@ -475,13 +704,16 @@ const trendingRecipes = [
 let currentRecipeIndex = 0;
 
 // Function to update hero banner content
+
 const updateHeroBanner = (index) => {
   const recipe = trendingRecipes[index];
 
   // Debugging: Log the recipe details to check if the data is correct
+
   console.log("Updating banner with recipe:", recipe);
 
   // Update hero banner content
+
   heroBannerContent.innerHTML = `
     <h3>Trending Now</h3>
     <h1>${recipe.title.split(" ").slice(0, 3).join(" ")}<br />${recipe.title.split(" ").slice(3).join(" ")}</h1>
@@ -489,6 +721,7 @@ const updateHeroBanner = (index) => {
   `;
 
   // Update background image dynamically
+
   if (recipe.image) {
     heroBanner.style.backgroundImage = `url(${recipe.image})`;
   } else {
@@ -517,23 +750,32 @@ arrows[1].addEventListener("click", () => {
 updateHeroBanner(currentRecipeIndex);
 
 
+// === DOM Elements ===
 
-// Get the button element
-const customMealPlanBtn = document.querySelector('#customMealPlanBtn');
-const customMealPlanContainer = document.querySelector('.custom-meal-container');
+// Share Recipe Form Elements
+const shareRecipeBtn = document.querySelector(".button-share-recipe");
+const shareRecipeContainer = document.querySelector(".share-recipe-container");
+const closeShareRecipeBtn = document.querySelector(".close-share-recipe");
+const recipeForm = document.querySelector("#recipeForm");
+const recipesContainer = document.querySelector("#mealPlan");
 
-// Add a click event listener
+// Input Elements and Error Messages
+const recipeName = document.querySelector("#recipeName");
+const ingredients = document.querySelector("#ingredients");
+const instructions = document.querySelector("#instructions");
+const recipeNameError = document.querySelector(".recipe-name-error");
+const ingredientsError = document.querySelector(".ingredients-error");
+const instructionsError = document.querySelector(".instructions-error");
 
-customMealPlanBtn.addEventListener('click', () => {
-  customMealPlanContainer.style.display = "block"; 
-});
-
-
-document.querySelector(".custom-meal-container-close-btn").addEventListener('click', () => {
-  customMealPlanContainer.style.display = "none"
-})
-
-// Meal options
+// Custom Meal Plan Elements
+const customMealPlanBtn = document.querySelector(".button-custom-meal");
+const customMealPlanContainer = document.querySelector(".custom-meal-container");
+const closeMealPlanBtn = document.querySelector(".custom-meal-container-close-btn");
+const dietSelect = document.querySelector("#diet");
+const generateBtn = document.querySelector(".generate-plane");
+const breakfastSpan = document.querySelector("#breakfast");
+const lunchSpan = document.querySelector("#lunch");
+const dinnerSpan = document.querySelector("#dinner");
 
 // Meal options for each category
 const meals = {
@@ -554,172 +796,144 @@ const meals = {
   }
 };
 
-
-// Get the meal plan container and diet select element
-const dietSelect = document.querySelector("#diet");
-const generateBtn = document.querySelector(".generate-plane");
-const breakfastSpan = document.querySelector("#breakfast");
-const lunchSpan = document.querySelector("#lunch");
-const dinnerSpan = document.querySelector("#dinner");
-
-// Event listener for selecting diet preference
-dietSelect.addEventListener("change", () => {
-  const selectedDiet = dietSelect.value;
-
-  // Get the selected meal plan based on the diet
-  const selectedMeals = meals[selectedDiet];
-
-  // Display meal plan for selected diet
-  breakfastSpan.textContent = selectedMeals.breakfast;
-  lunchSpan.textContent = selectedMeals.lunch;
-  dinnerSpan.textContent = selectedMeals.dinner;
-});
-
-generateBtn.addEventListener("click", () => {
-  const selectedDiet = dietSelect.value;
-
-  if (!meals[selectedDiet]) {
-    alert("Invalid category selected. Please try again.");
-    return;
-  }
-  // Display meal plan for selected diet
-
-  const selectedMeals = meals[selectedDiet];
-  breakfastSpan.textContent = selectedMeals.breakfast || "N/A";
-  lunchSpan.textContent = selectedMeals.lunch || "N/A";
-  dinnerSpan.textContent = selectedMeals.dinner || "N/A";
-});
-
-// === DOM Elements ===
-const shareRecipeBtn = document.querySelector(".button-share-recipe"); // Button to open "Share Your Recipe" form
-const shareRecipeContainer = document.querySelector(".share-recipe-container"); // Form container
-const closeShareRecipeBtn = document.querySelector(".close-share-recipe"); // Button to close the form
-const recipeForm = document.querySelector("#recipeForm"); // Recipe submission form
-const recipesContainer = document.querySelector("#mealPlan"); // Where shared recipes will be displayed
-
-// Optional UI Elements (for hiding/showing other parts of the page)
-const socialMediaLinks = document.querySelector(".social-media-links");
-
 // === Event Listeners ===
 
-// 1. Open the "Share Recipe" Form
+// 1. Open and Close "Share Recipe" Form
 shareRecipeBtn.addEventListener("click", () => {
-  // Show the form container
   shareRecipeContainer.style.display = "block";
 });
 
-// 2. Close the "Share Recipe" Form
 closeShareRecipeBtn.addEventListener("click", () => {
   shareRecipeContainer.style.display = "none";
 });
 
-const instructionsError= document.querySelector(".instructions-error");
-const ingredeintsError= document.querySelector(".ingredients-error");
-const recipeNameError= document.querySelector(".recipe-name-error");
+// 2. Real-Time Validation for "Share Recipe" Form Inputs
+function addInputListeners() {
+  recipeName.addEventListener("input", () => {
+    if (recipeName.value.trim().length >= 3) recipeNameError.textContent = "";
+  });
 
+  ingredients.addEventListener("input", () => {
+    if (ingredients.value.trim().length >= 10) ingredientsError.textContent = "";
+  });
+
+  instructions.addEventListener("input", () => {
+    if (instructions.value.trim().length >= 10) instructionsError.textContent = "";
+  });
+}
+addInputListeners();
+
+// 3. Validate "Share Recipe" Form
 function errorMessage() {
- let hasError = false; // Initialize flag for tracking errors
- // Validate Instructions
+  let hasError = false;
 
- if (instructions.value.trim() === "") {
-   instructionsError.textContent = "This field is required";
-   instructionsError.style.color = "red";
-   hasError = true;
-  } else if (instructions.value.length > 10) {
-  instructionsError.textContent = "Instructions should at least 10 characters long";
-  hasError = true;
-   } else {
-   instructionsError.textContent = "";
- }
+  if (instructions.value.trim() === "") {
+    instructionsError.textContent = "This field is required";
+    instructionsError.style.color = "red";
+    hasError = true;
+  } else if (instructions.value.trim().length < 10) {
+    instructionsError.textContent = "Instructions should be at least 10 characters long";
+    instructionsError.style.color = "red";
+    hasError = true;
+  } else {
+    instructionsError.textContent = "";
+  }
 
- if (ingredients.value.trim() === "") {
-   ingredeintsError.textContent = "This field is required";
-   ingredeintsError.style.color = "red";
-   hasError = true;
- } else if (ingredients.value.length > 10) {
-   ingredeintsError.textContent = "Ingredients should at least 10 characters long";
-   hasError = true;
- } else {
-   ingredeintsError.textContent = "";
- }
+  if (ingredients.value.trim() === "") {
+    ingredientsError.textContent = "This field is required";
+    ingredientsError.style.color = "red";
+    hasError = true;
+  } else if (ingredients.value.trim().length < 10) {
+    ingredientsError.textContent = "Ingredients should be at least 10 characters long";
+    ingredientsError.style.color = "red";
+    hasError = true;
+  } else {
+    ingredientsError.textContent = "";
+  }
 
- if (recipeName.value.trim() === "") {
-   recipeNameError.textContent = "This field is required";
-   recipeNameError.style.color = "red";
-   hasError = true;
- } else if (recipeName.value.length > 3) {
-   recipeNameError.textContent = "Recipe Name should at least 3 characters long";
-   hasError = true;
- } else {
-   recipeNameError.textContent = "";
- }
+  if (recipeName.value.trim() === "") {
+    recipeNameError.textContent = "This field is required";
+    recipeNameError.style.color = "red";
+    hasError = true;
+  } else if (recipeName.value.trim().length < 3) {
+    recipeNameError.textContent = "Recipe Name should be at least 3 characters long";
+    recipeNameError.style.color = "red";
+    hasError = true;
+  } else {
+    recipeNameError.textContent = "";
+  }
 
- return hasError;
+  return hasError;
 }
 
-// 3. Handle Recipe Submission
+// 4. Handle "Share Recipe" Submission
+
 recipeForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const hasError =  errorMessage();
-	// const hasError = errorMessage();
-  if(!hasError){
-  alert("Recipe shared successfully!");
+  const hasError = errorMessage();
+
+  if (!hasError) {
+    const newRecipe = {
+      name: recipeName.value.trim(),
+      ingredients: ingredients.value.split(",").map((item) => item.trim()),
+      instructions: instructions.value.trim()
+    };
+
+    recipesContainer.innerHTML += `
+      <div class="shared-recipe">
+        <h3>${newRecipe.name}</h3>
+        <p><strong>Ingredients:</strong> ${newRecipe.ingredients.join(", ")}</p>
+        <p><strong>Instructions:</strong> ${newRecipe.instructions}</p>
+      </div>
+    `;
+
+    saveRecipeToLocalStorage(newRecipe);
+    recipeForm.reset();
+    alert("Recipe shared successfully!");
   }
-  
-  
-
-
-
-
-  // Get user input
-  const recipeName = document.querySelector("#recipeName").value;
-  const ingredients = document.querySelector("#ingredients").value;
-  const instructions = document.querySelector("#instructions").value;
-
-  // Validate input
-  // if (!recipeName || !ingredients || !instructions) {
-  //   alert("Please fill out all fields.");
-  //   return;
-  // }
-
-  // Create a new recipe object
-  const newRecipe = {
-    name: recipeName,
-    ingredients: ingredients.split(",").map((item) => item.trim()),
-    instructions: instructions,
-  };
-
-  // Display the recipe (Append it to the DOM)
-  recipesContainer.innerHTML += `
-    <div class="shared-recipe">
-      <h3>${newRecipe.name}</h3>
-      <p><strong>Ingredients:</strong> ${newRecipe.ingredients.join(", ")}</p>
-      <p><strong>Instructions:</strong> ${newRecipe.instructions}</p>
-    </div>
-  `;
-
-  saveRecipeToLocalStorage(newRecipe);
-
-  // Show a success message
-
-
 });
 
-// === Helper Functions ===
-
-// Save a recipe to localStorage
+// 5. Save Recipe to Local Storage
 function saveRecipeToLocalStorage(recipe) {
   const existingRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
   existingRecipes.push(recipe);
   localStorage.setItem("recipes", JSON.stringify(existingRecipes));
 }
 
+// 6. Open and Close "Custom Meal Plan" Section
+customMealPlanBtn.addEventListener("click", () => {
+  customMealPlanContainer.style.display = "block";
+});
+
+closeMealPlanBtn.addEventListener("click", () => {
+  customMealPlanContainer.style.display = "none";
+});
+
+// 7. Handle Custom Meal Plan Generation
+dietSelect.addEventListener("change", () => {
+  const selectedMeals = meals[dietSelect.value];
+  if (selectedMeals) {
+    breakfastSpan.textContent = selectedMeals.breakfast || "N/A";
+    lunchSpan.textContent = selectedMeals.lunch || "N/A";
+    dinnerSpan.textContent = selectedMeals.dinner || "N/A";
+  }
+});
+
+generateBtn.addEventListener("click", () => {
+  const selectedMeals = meals[dietSelect.value];
+  if (selectedMeals) {
+    breakfastSpan.textContent = selectedMeals.breakfast || "N/A";
+    lunchSpan.textContent = selectedMeals.lunch || "N/A";
+    dinnerSpan.textContent = selectedMeals.dinner || "N/A";
+  } else {
+    alert("Invalid category selected. Please try again.");
+  }
+});
 
 
-// Retrieve recipes from localStorage
-function getRecipesFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("recipes")) || [];
-}
+
+
+// ........................................................
 
 const addItemBtn = document.getElementById('add-item-btn');
 const groceryList = document.getElementById('grocery-list');
@@ -744,18 +958,23 @@ addItemBtn.addEventListener('click', () => {
   }
 });
 
+
+
 document.querySelector('.button-grocery-list').addEventListener('click', (e) => {
   e.preventDefault();
 document.querySelector('.grocery-list-container').style.display = 'block'
+
 })
 
 document.querySelector('.grocery-list-close-btn').addEventListener('click', () => {
 document.querySelector('.grocery-list-container').style.display = 'none'
+
 })
 
 
+// .........................................................................
 
-        
+// Cooking Tips
 
 const tips = {
   "General Cooking Tips": [
@@ -797,7 +1016,7 @@ const tips = {
   ]
 };
 
-const tipsBtn = document.querySelector('#tips-btn');
+const tipsBtn = document.querySelector('.button-cooking-tips');
 const tipCard = document.querySelector('#tip-card');
 const tipText = document.querySelector('#tip-text');
 const tipcontainer = document.querySelector('.cooking-tips-container');
@@ -826,6 +1045,95 @@ document.querySelector('.cooking-tips-close-btn').addEventListener('click', () =
   tipcontainer.style.display = 'none'
 
 })
+
+// ............................................................................
+
+// === DOM Elements ===
+const emailInput = document.querySelector(".email-subscribe input");
+const subscribeBtn = document.querySelector(".email-subscribe button");
+
+// Create an error message element
+const emailError = document.createElement("p");
+emailError.style.color = "red";
+emailError.style.fontSize = "12px";
+emailError.style.marginTop = "5px";
+emailError.style.display = "none"; // Initially hidden
+document.querySelector(".email-subscribe").appendChild(emailError);
+
+// === Helper Functions ===
+
+// Validate Email Format
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email format validation
+  return emailRegex.test(email);
+}
+
+// Save Email to Local Storage
+function saveEmailToLocalStorage(email) {
+  const storedEmails = JSON.parse(localStorage.getItem("subscribedEmails")) || [];
+  if (!storedEmails.includes(email)) {
+    storedEmails.push(email);
+    localStorage.setItem("subscribedEmails", JSON.stringify(storedEmails));
+  }
+}
+
+// **********************************************************
+
+// === Event Listener ===
+
+subscribeBtn.addEventListener("click", () => {
+  const emailValue = emailInput.value.trim();
+
+  // Validate input
+  if (emailValue === "") {
+    emailError.textContent = "Email field cannot be empty.";
+    emailError.style.display = "block";
+    emailError.style.fontSize = "16px";
+  } else if (!isValidEmail(emailValue)) {
+    emailError.textContent = "Please enter a valid email address.";
+    emailError.style.display = "block";
+    emailError.style.fontSize = "16px";
+
+  } else {
+    // Save email and show success message
+    saveEmailToLocalStorage(emailValue);
+
+    emailError.style.color = "green";
+    emailError.textContent = "Subscription successful!";
+    emailError.style.display = "block";
+    emailError.style.fontSize = "16px";
+
+
+    // Clear the input after subscription
+    emailInput.value = "";
+
+    // Reset error message after a few seconds
+    setTimeout(() => {
+      emailError.style.display = "none";
+      emailError.style.color = "red";
+      emailError.style.fontSize = "16px";
+    }, 1000);
+  }
+});
+
+function toggleMenu() {
+  const menu = document.querySelector('.mobile-menu');
+  if (menu.style.display === 'flex') {
+    menu.style.display = 'none';
+  } else {
+    menu.style.display = 'flex';
+  }
+}
+
+
+
+function toggleMenu() {
+  const menu = document.querySelector('.mobile-menu');
+  menu.classList.toggle('active');
+}
+
+
+
 
 
 
