@@ -1036,7 +1036,7 @@ tipsBtn.addEventListener('click', () => {
     tipCard.classList.add('active');
   }, 100);
 });
- console.log(tipsBtn)
+ 
 
 tipButton.addEventListener('click', () => {
   tipcontainer.style.display = 'block'
@@ -1116,6 +1116,10 @@ subscribeBtn.addEventListener("click", () => {
   }
 });
 
+// *********************************************************************
+
+// Mobile Version 
+
 function toggleMenu() {
   const menu = document.querySelector('.mobile-menu');
   if (menu.style.display === 'flex') {
@@ -1132,7 +1136,34 @@ function toggleMenu() {
   menu.classList.toggle('active');
 }
 
+document.querySelector('#recipBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  menuCard.style.display = "block";
+  openMenuPopup();
+})
+document.querySelector('#shareBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  shareRecipeContainer.style.display = "block";
+ 
+})
+document.querySelector('#customBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  customMealPlanContainer.style.display = "block";
+  
+ 
+})
+document.querySelector('#groceryBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+document.querySelector('.grocery-list-container').style.display = 'block'
+  
 
+})
+document.querySelector('#tipBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  tipcontainer.style.display = 'block'
+ 
+
+})
 
 
 
