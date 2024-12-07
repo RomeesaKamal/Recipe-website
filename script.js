@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     likeIcon.addEventListener('click', () => {
       likeIcon.classList.toggle('liked');
       const isLiked = likeIcon.classList.contains('liked');
+      
       let currentCount = parseInt(likeCount.textContent, 10) || 0;
       currentCount = isLiked ? currentCount + 1 : currentCount - 1;
       likeCount.textContent = currentCount;
