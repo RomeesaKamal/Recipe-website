@@ -1496,6 +1496,7 @@ h3 {
 }
 
 /* Hamburger Icon */
+
 .hamburger {
   font-size: 30px;
   cursor: pointer;
@@ -1507,6 +1508,7 @@ h3 {
 }
 
 /* Mobile Menu (Hidden by Default) */
+
 .mobile-menu {
   display: none;
   flex-direction: column;
@@ -1530,8 +1532,6 @@ h3 {
 .mobile-menu.active {
   transform: translateX(0); /* Show menu on-screen */
 }
-
-
 
 #featureBtn{
 display: flex;
@@ -1569,6 +1569,27 @@ flex-direction: column;
   }
   .nav-links {
     display: none;
+  }
+
+  .recipe-list{
+   display: grid;
+  }
+
+  .menu-card h2,
+  .share-recipe-container h2
+  {
+    font-size: 30px;
+  }
+
+  .menu-close-btn,
+  .close-share-recipe {
+   padding: 6px;
+   right: 3px;
+  }
+
+  .search-bar{
+    display: grid;
+    grid-template-columns: auto 200px auto;
   }
 
   .recipe-cards,
@@ -1613,6 +1634,19 @@ flex-direction: column;
    display: none;
   }
 
+  .recipe-details{
+    width: 70%;
+  }
+
+  .recipe-details-content h2 {
+    font-size: 30px;
+  }
+
+  .recipe-close-btn{
+    padding: 6px;
+    right: 2px;
+  }
+
   .footer-content {
     display: flex;
     flex-direction: column;
@@ -1631,13 +1665,26 @@ flex-direction: column;
   grid-template-columns: auto  40px auto;
 }
 .load-more{
+  display: none;
   left: 20%;
   right: 405;
 }
+.user-shared-recipe{
+  font-size: 18px;
+  padding: 10px;
+}
+
 .social-media-links {
   gap: 20px;
 }
 
+.share-recipe-container{
+  padding: 0;
+}
+#recipeForm label{
+  box-shadow: none;
+  font-size: 20px;
+}
 
 
 }
@@ -1647,6 +1694,18 @@ flex-direction: column;
   display: flex;
   flex-direction: column;
   }
+}
+@media(max-width:475px) {
+  #recipeForm label{
+    font-size: 18px;
+    text-shadow: none;
+  }
+  #ingredients,
+#instructions {
+  padding: 10px 40px;
+  width: 100%;
+  font-size: 4px;
+}
 }
 
 @media(max-width:372px){
@@ -1702,7 +1761,6 @@ flex-direction: column;
     overflow-y: scroll;
     font-size: 16px;
     padding: 10px;
-    /* left: 20%; */
   }
   #comment-form {
     padding: 10px;
