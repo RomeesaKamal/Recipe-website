@@ -601,6 +601,8 @@ const recipeNameError = document.querySelector(".recipe-name-error");
 const ingredientsError = document.querySelector(".ingredients-error");
 const instructionsError = document.querySelector(".instructions-error");
 const sharedRecipesContainer = document.querySelector(".user-shared-recipe");
+const successPopup = document.querySelector("#successPopup");
+const popupMessage = document.querySelector("#popupMessage");
 
 // Meal Plan Elements
 const dietSelect = document.querySelector("#diet");
@@ -889,13 +891,14 @@ function deleteRecipe(index) {
   renderRecipes(); // Re-render the recipes
 }
 
+
 // Function to render all recipes
 function renderRecipes() {
   sharedRecipesContainer.innerHTML = ""; // Clear existing recipes
   const storedRecipes = JSON.parse(localStorage.getItem("userRecipes")) || [];
   storedRecipes.forEach((recipe, index) => {
-//  shareRecipeContainer.innerHTML = ` `;
 
+//  shareRecipeContainer.innerHTML = ` `;
     addRecipeCard(recipe.name, recipe.ingredients, recipe.instructions, index);
   });
 }
@@ -910,42 +913,34 @@ recipeForm.addEventListener("submit", (event) => {
       ingredients: ingredients.value.trim(),
       instructions: instructions.value.trim(),
     };
-
+  
     const storedRecipes = JSON.parse(localStorage.getItem("userRecipes")) || [];
     storedRecipes.push(recipeData);
     localStorage.setItem("userRecipes", JSON.stringify(storedRecipes));
 
     renderRecipes(); // Update recipe cards
     recipeForm.reset(); // Clear the form
-     // Show the success popup
-    showPopup("Your recipe was successfully submitted!");
-
-    //  showSuccessMessage("Your recipe has been added successfully!");
+    
+     showPopup("Your recipe has been added successfully!");
   }
 });
 
-// Load recipes from localStorage on page load
-window.addEventListener("load", () => {
-  renderRecipes();
-});
-
-const successPopup = document.querySelector("#successPopup");
-const popupMessage = document.querySelector("#popupMessage");
 
 // Show the popup with a message
 function showPopup(message) {
   popupMessage.textContent = message;
-  popupMessage.style.color = 'darkgreen'
+    popupMessage.style.color = 'green'
+  popupMessage.style.fontSize = '22px'
   successPopup.classList.remove("hidden"); // Make it visible
   setTimeout(() => {
     successPopup.classList.add("hidden"); // Auto-hide after 3 seconds
   }, 2000);
 }
 
-
-
-
-
+// Load recipes from localStorage on page load
+window.addEventListener("load", () => {
+  renderRecipes();
+});
 
 
 shareRecipeBtn.addEventListener("click", () => shareRecipeContainer.style.display = "block");
@@ -1033,17 +1028,49 @@ closeMealPlanBtn.addEventListener("click", () => customMealPlanContainer.style.d
 
 // Grocery List
 
-function addItem() {
-  const itemInput = document.getElementById('itemInput');
-  const groceryList = document.getElementById('groceryList');
-
-  if (itemInput.value.trim() !== '') {
-      const li = document.createElement('li');
-      li.textContent = itemInput.value;
-      groceryList.appendChild(li);
-      itemInput.value = '';
-  }
+  // Load the list from local storage
+  function loadList() {
+    const storedItems = JSON.parse(localStorage.getItem('groceryList')) || [];
+    const groceryList = document.getElementById('groceryList');
+    groceryList.innerHTML = '';
+    storedItems.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item} <span class="delete-btn" data-index="${index}"><i class="fa-solid fa-trash"></i></span>`;
+        groceryList.appendChild(li);
+    });
 }
+
+// Save the list to local storage
+function saveList() {
+    const groceryList = document.getElementById('groceryList');
+    const items = Array.from(groceryList.children).map(li => li.textContent.trim());
+    localStorage.setItem('groceryList', JSON.stringify(items));
+}
+
+// Add a new item to the list
+function addItem() {
+    const itemInput = document.getElementById('itemInput');
+    const groceryList = document.getElementById('groceryList');
+    if (itemInput.value.trim() !== '') {
+        const li = document.createElement('li');
+        li.innerHTML = `${itemInput.value.trim()} <span class="delete-btn"><i class="fa-solid fa-trash"></i></span>`;
+        groceryList.appendChild(li);
+        itemInput.value = '';
+        saveList(); // Save the updated list
+    }
+}
+
+// Handle delete functionality
+document.getElementById('groceryList').addEventListener('click', function (event) {
+    if (event.target.closest('.delete-btn')) {
+        const li = event.target.closest('li');
+        li.remove(); // Remove the item from the DOM
+        saveList(); // Save the updated list
+    }
+});
+
+// Load the list on page load
+window.onload = loadList;
 
 document.querySelector('.button-grocery-list').addEventListener('click', (e) => {
   e.preventDefault();

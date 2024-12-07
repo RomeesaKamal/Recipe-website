@@ -114,6 +114,9 @@
         <div class="recipe-cards"></div>
       </div>
 
+      <div id="successPopup" class="successPopup hidden">
+        <p id="popupMessage"></p>
+      </div>
       
     </main>
 
@@ -194,7 +197,8 @@
           <h1>Grocery List</h1>
         <input type="text" id="itemInput" placeholder="Enter item">
         <button onclick="addItem()" id="add-btn">Add Item</button>
-        <ul id="groceryList"></ul>
+        <ul id="groceryList">
+        </ul>
         </div>
         
         <div class="cooking-tips-container">
@@ -284,6 +288,8 @@
         </form>
       </div>
 
+ 
+
 <!-- Hamburger Icon -->
 <div class="hamburger" onclick="toggleMenu()">
   &#9776; <!-- Unicode for the hamburger icon -->
@@ -300,10 +306,6 @@
           Cooking Tips and Tricks<span>></span>
         </div>
       </div>
-</div>
-
-<div id="successPopup" class="successPopup hidden">
-  <p id="popupMessage"></p>
 </div>
 
     <script src="script.js"></script>

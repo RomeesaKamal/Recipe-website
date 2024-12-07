@@ -441,7 +441,6 @@ span {
 /* Share recipe Container */
 
 .share-recipe-container {
-  /* position: relative; */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -452,7 +451,7 @@ span {
   padding: 2rem;
   border: 1px solid #ccc;
   width: 60%;
-  height: 60%;
+  height: 70%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   border-radius: 8px;
@@ -463,12 +462,13 @@ span {
 #successPopup{
   display: none;
   position: fixed;
-  top: 50%;
+  top: 17%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f9f9f9;
+  background-color: #d3d1d1;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #218838;
   padding: 20px;
   z-index: 1000;
   text-align: center;
@@ -477,35 +477,13 @@ span {
   gap: 10px;
   max-width: 300px;
   width: 90%;
-  height: fit-content;
+  height:fit-content;
 }
 
 .hidden{
   display: none;
 }
 
-#successPopup p {
-  font-size: 16px;
-  color: #333;
-}
-
-#closePopup {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-#closePopup:hover {
-  background-color: #45a049;
-}
-
-#popupMessage{
-  color: #4caf50;
-  font-weight: bold;
-}
 
 #recipeForm {
   width: 100%;
@@ -869,6 +847,8 @@ border-radius: 8px;
 }
 
 #groceryList li{
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
   border-bottom: 1px solid #ccc;
   border-radius: 8px;
