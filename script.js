@@ -1020,7 +1020,6 @@ window.addEventListener('load', () => {
 customMealPlanBtn.addEventListener("click", (e) => {
   e.preventDefault();
   customMealPlanContainer.style.display = "block"
-  console.log('ab');
 });
 
 closeMealPlanBtn.addEventListener("click", () => customMealPlanContainer.style.display = "none");
