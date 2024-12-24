@@ -4,6 +4,25 @@
 
 The Recipe Website offers a seamless way for users to organize and manage their culinary creations. With features that allow you to save and track ingredients, create delicious recipes, and generate detailed shopping lists, it ensures you're always prepared for your next cooking adventure. The app intelligently accounts for the ingredients you have and those you need, simplifying your grocery shopping. Plus, with the option to make recipes public, sharing your culinary magic with others has never been easier. Whether you're a home cook or a culinary enthusiast, this app helps bring your kitchen to life!
 
+
+## Table of contents
+
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+  - [Usage](#usage)
+  - [Setup](#setup)
+  - [Links](#links)
+  - [Built with](#built-with)
+  - [Continued development](#continued-development)
+  - [Live Demo](#-live-demo)
+  - [Author](#author)
+  - [Contributing](#-contributing)
+  - [Show your support](#show-your-support)
+  - [Acknowledgments](#acknowledgments)
+  - [ Why is Kamal’s Kitchen Magic Special](#why-is-kamals-kitchen-magic-special)
+  - [License](#-license)
+
+
 ## 🌟 Features
 
 - Recipe Management: Easily create, save, and organize your favorite recipes with detailed instructions and images.
@@ -40,6 +59,11 @@ Clone the GitHub Repository
 
 Start your server by clicking Go Live
 
+### Links
+
+- Solution URL: [solution URL here](https://github.com/RomeesaKamal/Recipe-website)
+- Live Site URL: [live site URL here](https://romeesakamal.github.io/Recipe-website/)
+
 ## Built With
 
 **HTML/CSS & JS best practices:** Correct use of tags, elements, properties and syntax and fetching od API.
@@ -56,6 +80,8 @@ Start your server by clicking Go Live
 
 - GitHub: [@kamalromeesa](https://github.com/RomeesaKamal/)
 - Fronted Mentor: [@Romeesakamal](https://www.frontendmentor.io/profile/RomeesaKamal)
+- Linkedin: [@Romeesakamal](https://www.linkedin.com/in/romeesa-kamal-7864b8342/)
+
 
 ## 🤝 Contributing
 
