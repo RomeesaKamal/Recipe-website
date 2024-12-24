@@ -95,7 +95,7 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- Thanks to the Mujeeb ur Rehman for the great curriculum.
+- Thanks to the [Mujeeb ur Rehman](https://github.com/Mujeeb4582/) for the great curriculum.
 - Thanks to the Code Reviewer(s) for the insightful feedback.
 
 
