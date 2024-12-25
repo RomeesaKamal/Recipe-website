@@ -450,7 +450,7 @@ span {
   background-color: #fff;
   padding: 2rem;
   border: 1px solid #ccc;
-  width: 60%;
+  width: 50%;
   height: 70%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
@@ -554,7 +554,7 @@ span {
   right: 20px;
   color: #fff;
   background-color: red;
-  padding: 10px;
+  padding: 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -1674,6 +1674,15 @@ h3 {
     grid-gap: 0px;
     background-size: cover;
   }
+  
+  .recipe-details,
+  .cooking-tips-container,
+  .grocery-list-container,
+  .custom-meal-container,
+  .share-recipe-container,
+  .menu-card {
+    width: 93%;
+  }  
 
   .hero-banner-content {
     display: flex;
