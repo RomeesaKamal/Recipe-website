@@ -1502,7 +1502,7 @@ h3 {
   position: fixed;
   top: 0;
   right: 0;
-  width: 40%;
+  width: 65%;
   height: 100%;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
   z-index: 999;
@@ -1519,11 +1519,86 @@ h3 {
   transform: translateX(0); /* Show menu on-screen */
 }
 
+#logo {
+  margin-top: 2rem;
+  display: flex;
+  height: 150px;
+  width: 150px;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+  gap: 2rem;
+  font-size: 32px;
+}
+
+.navItems {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 30px 5rem;
+  gap: 40px;
+}
+
+#Home {
+  color: #218838;
+  text-decoration: underline;
+}
+
+.Catgry-container {
+  margin-top: 40px;
+}
+
+.Catgry-container p {
+  font-size: 25px;
+  margin: 0 50px;
+  color: #218838;
+}
+
+#select-category {
+  margin: 30px 1.8rem;
+  padding: 19px;
+  border: none;
+  color: #1b0f2b;
+  font-weight: 600;
+  font-size: 22px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.socialMedia-links {
+  display: flex;
+  position: fixed;
+  bottom: 5px;
+  gap: 20px;
+  padding: 0 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialMedia-links a i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #2a3342;
+  width: 45px;
+  height: 45px;
+  color: #fff;
+  border: none;
+}
+
+.socialMedia-links a i:hover {
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.1);
+}
+
 #featureBtn {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 10px;
-  margin: 10px 20px;
+  display: none;
+  margin: 30px 20px;
+  margin-bottom: 5rem;
 }
 
 #recipBtn,
@@ -1531,12 +1606,13 @@ h3 {
 #customBtn,
 #groceryBtn,
 #tipBtn {
-  font-size: 20px;
-  margin-top: 40%;
+  font-size: 22
+  px;
+  margin-top: 15%;
   background-color: #fff;
   color: #000;
   box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.6);
-  padding: 10px 50px;
+  padding: 15px 50px;
 }
 
 /* Media Querry */
@@ -1548,26 +1624,26 @@ h3 {
     padding-left: 90px;
   }
 
-  .header-logo {
+  #featureBtn {
+    display: block;
+  }
+
+  .header-logo,
+  form select,
+  .nav-links,
+  .site-header__profile-image,
+  .feature-buttons,
+  .social-media-links {
     display: none;
   }
 
-  .hamburger {
-    display: block;
-  }
+  .hamburger,
   .mobile-menu {
     display: block;
-  }
-  .nav-links {
-    display: none;
   }
 
   .recipe-list {
     display: grid;
-  }
-
-  .site-header__profile-image {
-    display: none;
   }
 
   .menu-card h2,
@@ -1583,7 +1659,7 @@ h3 {
 
   .search-bar {
     display: grid;
-    grid-template-columns: auto 200px auto;
+    grid-template-columns: auto 55px;
   }
 
   .recipe-cards,
@@ -1625,10 +1701,6 @@ h3 {
     margin: 0;
   }
 
-  .feature-buttons {
-    display: none;
-  }
-
   .recipe-details {
     width: 70%;
   }
@@ -1650,48 +1722,63 @@ h3 {
   .recommended-title,
   .research-title,
   .category-title {
-    font-size: 28px;
+    font-size: 38px;
+    line-height: 62px;
+    align-items: center;
+  }
+  .share-recipe-container {
+    width: 80%;
+  }
+
+  #recipeForm {
+    padding: 20px;
   }
 }
 
-@media(max-width:660px){
-  .search-bar{
+@media (max-width: 660px) {
+  .search-bar {
     display: grid;
-    grid-template-columns: 150px auto 50px;
+    grid-template-columns: auto 55px;
     margin-right: 6rem;
   }
 
-  form select{
+  form select {
     font-size: 15px;
     font-weight: 500;
   }
+  .share-recipe-container h2 {
+    margin-top: 1rem;
+  }
+
+  .navLinks {
+    font-size: 20px;
+  }
+
+  .Catgry-container p {
+    font-size: 20px;
+  }
+
+  #select-category {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .socialMedia-links a i {
+    width: 35px;
+    height: 35px;
+  }
 }
 
-@media (max-width: 516px) {
-  .search-bar {
-    display: grid;
-    grid-template-columns: auto 40px auto;
-  }
-  .load-more {
-    display: none;
-    left: 20%;
-    right: 405;
-  }
-  .user-shared-recipe {
-    font-size: 18px;
-    padding: 10px;
-  }
-
+@media (max-width: 575px) {
   .social-media-links {
-    gap: 20px;
+    padding: auto 20px;
   }
-
-  .share-recipe-container {
-    padding: 0;
+  .socialMedia-links a i {
+    width: 30px;
+    height: 30px;
   }
-  #recipeForm label {
-    box-shadow: none;
-    font-size: 20px;
+  .hero-banner-content {
+    margin-right: 3rem;
   }
 }
 
@@ -1701,20 +1788,94 @@ h3 {
     flex-direction: column;
   }
 }
-@media (max-width: 475px) {
-  #recipeForm label {
-    font-size: 18px;
-    text-shadow: none;
+
+@media (max-width: 516px) {
+  .share-recipe-container h2 {
+    margin-top: 2rem;
   }
-  #ingredients,
-  #instructions {
-    padding: 10px 40px;
-    width: 100%;
-    font-size: 4px;
+  .search-bar {
+    display: grid;
+    grid-template-columns: auto 55px;
+  }
+  .load-more {
+    display: none;
+    left: 20%;
+    right: 405;
   }
 
+  .user-shared-recipe {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .social-media-links {
+    padding: 0px;
+  }
+  .socialMedia-links a i {
+    width: 25px;
+    height: 25px;
+  }
+
+  .social-media-links {
+    gap: 20px;
+  }
+
+  .share-recipe-container {
+    padding: 0;
+  }
+
+  #recipeForm label {
+    box-shadow: none;
+    font-size: 20px;
+  }
 }
 
+@media (max-width: 475px) {
+  .share-recipe-container h2 {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 478px) {
+  .recipe-cards,
+  .category-cards,
+  .result-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-img {
+    display: none;
+  }
+  .hero-container {
+    height: 100%;
+  }
+
+  .hero-banner-content {
+    padding: 40px;
+    font-size: 22px;
+  }
+
+  .arrows {
+    bottom: 10px;
+    left: 50px;
+  }
+  .arrows span i {
+    padding: 5px;
+  }
+  .hero-banner p {
+    font-size: 18px;
+  }
+
+  .hero-banner h1 {
+    font-size: 28px;
+  }
+  .hero-banner h3 {
+    color: #fc9505;
+  }
+}
 
 @media (max-width: 372px) {
   main {
@@ -1723,9 +1884,7 @@ h3 {
     align-items: center;
     flex-direction: column;
   }
-  .logo-img {
-    display: none;
-  }
+
   .about-section {
     justify-content: center;
     align-items: center;
@@ -1739,10 +1898,27 @@ h3 {
     height: auto;
   }
 
+
+  .social-media-links {
+    position: absolute;
+    left: 0;
+    padding: 0px 2px;
+    gap: 10px;
+  }
+
+  .socialMedia-links a i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+  }
+
   .hero-banner-content {
     padding: 40px;
     font-size: 22px;
   }
+
   .arrows {
     bottom: 10px;
     left: 50px;

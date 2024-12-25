@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryCards = document.querySelector(".category-cards");
   const categoryTitle = document.querySelector(".category-title");
   const select = document.querySelector("#select");
+  const selectCategory = document.querySelector("#select-category");
   const recipeCloseBtn = document.querySelector(".recipe-close-btn");
   const commentPopup = document.getElementById("comment-popup");
   const commentForm = document.getElementById("comment-form");
@@ -565,6 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Clear existing options and add default
     select.innerHTML = '<option value="">All Categories</option>';
+    selectCategory.innerHTML = '<option value="">All Categories</option>';
 
     // Add categories dynamically
     categories.forEach((category) => {
@@ -572,6 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
       option.value = category.strCategory;
       option.textContent = category.strCategory;
       select.appendChild(option);
+      selectCategory.appendChild(option);
     });
   };
 
@@ -591,6 +594,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedCategory = e.target.value;
     fetchAndDisplayRecipesByCategory(selectedCategory);
   });
+
+  selectCategory.addEventListener("change", (e) => {
+    const selectedCategory = e.target.value;
+    fetchAndDisplayRecipesByCategory(selectedCategory);
+  });
+
+ 
+
 
   // *******************************************************************************************
   // Initial Function Calls
