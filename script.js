@@ -176,28 +176,60 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {Object} meal - The meal object associated with the card.
    */
   const bindCardFunctionality = (card, meal) => {
+
     // Like Button Functionality
-    const likeIcon = card.querySelector('.like-icon');
-    const likeCount = card.querySelector('.like-count');
-    const storedLikes = getDataFromLocalStorage(meal.idMeal, 'likes') || 0;
-    likeCount.textContent = storedLikes;
-    if (storedLikes > 0) {
-      likeIcon.classList.add('liked');
-      likeIcon.style.color = 'red';
-    }
 
-    likeIcon.addEventListener('click', () => {
-      likeIcon.classList.toggle('liked');
-      const isLiked = likeIcon.classList.contains('liked');
+    // const likeIcon = card.querySelector('.like-icon');
+    // const likeCount = card.querySelector('.like-count');
+    // const storedLikes = getDataFromLocalStorage(meal.idMeal, 'likes') || 0;
+    // likeCount.textContent = storedLikes;
+    // if (storedLikes > 0) {
+    //   likeIcon.classList.add('liked');
+    //   likeIcon.style.color = 'red';
+    // }
+
+    // likeIcon.addEventListener('click', () => {
+    //   likeIcon.classList.toggle('liked');
+    //   const isLiked = likeIcon.classList.contains('liked');
       
-      let currentCount = parseInt(likeCount.textContent, 10) || 0;
-      currentCount = isLiked ? currentCount + 1 : currentCount - 1;
-      likeCount.textContent = currentCount;
-      likeIcon.style.color = isLiked ? 'red' : '';
+    //   let currentCount = parseInt(likeCount.textContent, 10) || 0;
+    //   currentCount = isLiked ? currentCount + 1 : currentCount - 1;
+    //   likeCount.textContent = currentCount;
+    //   likeIcon.style.color = isLiked ? 'red' : '';
 
-      // Save likes to LocalStorage
+    //   // Save likes to LocalStorage
+    //   saveDataToLocalStorage(meal.idMeal, 'likes', currentCount);
+    // });
+
+     document.addEventListener('click', (event) => {
+      if (event.target.classList.contains('like-icon')) {
+        const likeIcon = event.target; // Get the clicked icon
+        const likeCount = likeIcon.nextElementSibling; // Assuming count is the next sibling
+        const isLiked = likeIcon.classList.contains('fa-solid');
+        let currentCount = parseInt(likeCount.textContent, 10) || 0;
+    
+        if (isLiked) {
+          // Unlike
+          likeIcon.classList.remove('fa-solid');
+          likeIcon.classList.add('fa-regular');
+          likeIcon.style.color = '';
+          currentCount = Math.max(currentCount - 1, 0);
+        } else {
+          // Like
+          likeIcon.classList.remove('fa-regular');
+          likeIcon.classList.add('fa-solid');
+          likeIcon.style.color = 'red';
+          currentCount += 1;
+        }
+    
+        likeCount.textContent = currentCount;
+    
+        // Save updated state 
       saveDataToLocalStorage(meal.idMeal, 'likes', currentCount);
+        
+      }
     });
+    
 
     // Rating Functionality
     const rateStar = card.querySelector('.rate-star');

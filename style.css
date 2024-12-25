@@ -1,4 +1,5 @@
 /* Global Styling */
+
 * {
   padding: 0%;
   margin: 0%;
@@ -237,6 +238,7 @@ form button i {
   font-size: 20px;
   border: 2px solid #fff;
 }
+
 .arrows span {
   cursor: pointer;
   font-size: 20px;
@@ -1231,6 +1233,7 @@ span {
   width: 20px;
   font-size: 18px;
 }
+
 .card-content span {
   font-size: 15px;
   color: #8e8e8e;
