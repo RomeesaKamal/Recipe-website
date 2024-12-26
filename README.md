@@ -1,5 +1,7 @@
 ![HTML](https://img.shields.io/badge/-HTML-orange) ![CSS](https://img.shields.io/badge/-CSS-blue) ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow)
 
+![Recipe Website Design](./assests/all-devices-white.png)
+
 # Recipe Website
 
 The Recipe Website offers a seamless way for users to organize and manage their culinary creations. With features that allow you to save and track ingredients, create delicious recipes, and generate detailed shopping lists, it ensures you're always prepared for your next cooking adventure. The app intelligently accounts for the ingredients you have and those you need, simplifying your grocery shopping. Plus, with the option to make recipes public, sharing your culinary magic with others has never been easier. Whether you're a home cook or a culinary enthusiast, this app helps bring your kitchen to life!
