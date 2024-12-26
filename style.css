@@ -450,7 +450,7 @@ span {
   background-color: #fff;
   padding: 2rem;
   border: 1px solid #ccc;
-  width: 50%;
+  width: 60%;
   height: 70%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
@@ -506,13 +506,15 @@ span {
 }
 
 .share-recipe-container::-webkit-scrollbar {
-  width: 20px;
+  width: 15px;
 }
 
 .share-recipe-container::-webkit-scrollbar-thumb {
   background: #d3d1d1;
   border-radius: 4px;
   --webkit-border-radius: 16px;
+  height: 40px;
+
 }
 
 #ingredients,
@@ -554,7 +556,7 @@ span {
   right: 20px;
   color: #fff;
   background-color: red;
-  padding: 20px;
+  padding: 18px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
