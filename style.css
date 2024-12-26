@@ -1529,16 +1529,16 @@ h3 {
 .navLinks {
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
   gap: 2rem;
-  font-size: 32px;
+  font-size: 26px;
+  padding: 20px 50px;
 }
 
 .navItems {
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding: 30px 5rem;
+  padding: 30px 3.5rem;
   gap: 40px;
 }
 
@@ -1548,22 +1548,15 @@ h3 {
 }
 
 .Catgry-container {
-  margin-top: 40px;
+  padding: 20px 50px;
 }
 
-.Catgry-container p {
-  font-size: 25px;
-  margin: 0 50px;
-  color: #218838;
-}
 
 #select-category {
-  margin: 30px 1.8rem;
   padding: 19px;
   border: none;
-  color: #1b0f2b;
-  font-weight: 600;
-  font-size: 22px;
+  color: #083616;
+  font-size: 26px;
   border-radius: 5px;
   outline: none;
 }
@@ -1599,6 +1592,7 @@ h3 {
   display: none;
   margin: 30px 20px;
   margin-bottom: 5rem;
+  padding: 5px 40px;
 }
 
 #recipBtn,
@@ -1626,6 +1620,10 @@ h3 {
 
   #featureBtn {
     display: block;
+  }
+
+  .mobile-menu{
+    width: 50%;
   }
 
   .header-logo,
@@ -1759,19 +1757,6 @@ h3 {
     margin-top: 1rem;
   }
 
-  .navLinks {
-    font-size: 20px;
-  }
-
-  .Catgry-container p {
-    font-size: 20px;
-  }
-
-  #select-category {
-    font-size: 18px;
-    font-weight: 400;
-  }
-
   .socialMedia-links a i {
     width: 35px;
     height: 35px;
@@ -1842,6 +1827,10 @@ h3 {
 @media (max-width: 475px) {
   .share-recipe-container h2 {
     margin-top: 3rem;
+  }
+
+  .Catgry-container{
+   padding: 20px 10px;
   }
 }
 
@@ -1921,6 +1910,22 @@ h3 {
     align-items: center;
     width: 20px;
     height: 20px;
+  }
+
+  .mobile-menu{
+    width: 80%;
+  }
+
+  .navItems{
+    padding: 20px 10px;
+  }
+
+  .Catgry-container{
+    padding: 20px 5px;
+  }
+
+  #select-category {
+    font-size: 20px;
   }
 
   .hero-banner-content {
