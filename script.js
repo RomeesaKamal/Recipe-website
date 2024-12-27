@@ -1441,19 +1441,24 @@ document.querySelector("#recipBtn").addEventListener("click", (e) => {
   menuCard.style.display = "block";
   openMenuPopup();
 });
+
 document.querySelector("#shareBtn").addEventListener("click", (e) => {
   e.preventDefault();
   shareRecipeContainer.style.display = "block";
 });
+
 document.querySelector("#customBtn").addEventListener("click", (e) => {
   e.preventDefault();
   customMealPlanContainer.style.display = "block";
 });
+
 document.querySelector("#groceryBtn").addEventListener("click", (e) => {
   e.preventDefault();
   document.querySelector(".grocery-list-container").style.display = "block";
 });
+
 document.querySelector("#tipBtn").addEventListener("click", (e) => {
   e.preventDefault();
   tipcontainer.style.display = "block";
 });
+
