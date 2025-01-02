@@ -1813,6 +1813,16 @@ h3 {
     margin-top: 3rem;
   }
 
+  .hero-banner{
+    display: none;
+  }
+  .recommended-title,
+  .category-title,
+  .research-title{
+    position: absolute;
+    top: 52px;
+  }
+
   .Catgry-container {
     padding: 20px 10px;
   }
