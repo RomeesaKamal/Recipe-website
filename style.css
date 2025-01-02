@@ -1321,6 +1321,8 @@ span {
   transform: scale(1.05);
 }
 
+
+
 /* *********************************************************************** */
 
 /* Footer Section */
@@ -1816,12 +1818,7 @@ h3 {
   .hero-banner{
     display: none;
   }
-  .recommended-title,
-  .category-title,
-  .research-title{
-    position: absolute;
-    top: 52px;
-  }
+
 
   .Catgry-container {
     padding: 20px 10px;
@@ -1890,11 +1887,11 @@ h3 {
     padding: 10px;
   }
 
-  .hero-banner {
+  /* .hero-banner {
     margin: 2rem 50px;
-  }
+  } */
 
-  .recipe-cards,
+  /* .recipe-cards,
   .result-cards,
   .category-cards {
     margin-top: 0rem;
@@ -1905,7 +1902,7 @@ h3 {
   .category-title{
    margin-top: 0rem;
    font-size: 32px;
-  }
+  } */
 
 
   .search-bar {
