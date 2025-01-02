@@ -1321,8 +1321,6 @@ span {
   transform: scale(1.05);
 }
 
-
-
 /* *********************************************************************** */
 
 /* Footer Section */
@@ -1737,7 +1735,7 @@ h3 {
     line-height: 62px;
     align-items: center;
   }
-  
+
   #recipeForm {
     padding: 20px;
   }
@@ -1761,7 +1759,6 @@ h3 {
 }
 
 @media (max-width: 575px) {
- 
   .social-media-links {
     padding: auto 20px;
   }
@@ -1786,7 +1783,6 @@ h3 {
   .search-bar {
     display: grid;
     grid-template-columns: auto 55px;
-    
   }
 
   .load-more {
@@ -1815,10 +1811,9 @@ h3 {
     margin-top: 3rem;
   }
 
-  .hero-banner{
+  .hero-banner {
     display: none;
   }
-
 
   .Catgry-container {
     padding: 20px 10px;
@@ -1887,23 +1882,13 @@ h3 {
     padding: 10px;
   }
 
-  /* .hero-banner {
-    margin: 2rem 50px;
-  } */
-
-  /* .recipe-cards,
-  .result-cards,
-  .category-cards {
-    margin-top: 0rem;
+  .recommended-title{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 2rem;
   }
-
-  .recommended-title,
-  .research-title,
-  .category-title{
-   margin-top: 0rem;
-   font-size: 32px;
-  } */
-
 
   .search-bar {
     position: absolute;
@@ -1950,7 +1935,6 @@ h3 {
     color: #fc9505;
   }
 
-  
   .popup {
     overflow-y: scroll;
     font-size: 16px;
