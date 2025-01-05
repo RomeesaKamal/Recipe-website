@@ -1489,7 +1489,7 @@ h3 {
   cursor: pointer;
   display: none;
   position: fixed;
-  top: 30px;
+  top: 25px;
   right: 25px;
   z-index: 1000;
 }
@@ -1520,11 +1520,20 @@ h3 {
   transform: translateX(0); /* Show menu on-screen */
 }
 
-#logo {
-  margin-top: 2rem;
+.logo-prfile {
   display: flex;
+  justify-content: space-between;
+}
+
+#logo {
   height: 150px;
   width: 150px;
+}
+
+#profile {
+  height: 150px;
+  width: 150px;
+  margin-top: 20px;
 }
 
 .navLinks {
@@ -1537,7 +1546,8 @@ h3 {
 
 .navItems {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   padding: 30px 3.5rem;
   gap: 40px;
@@ -1549,6 +1559,8 @@ h3 {
 }
 
 .Catgry-container {
+  background-color: #218838;
+  border-radius: 8px;
   padding: 20px 50px;
 }
 
@@ -1556,7 +1568,7 @@ h3 {
   padding: 19px;
   border: none;
   color: #083616;
-  font-size: 26px;
+  font-size: 32px;
   border-radius: 5px;
   outline: none;
 }
@@ -1565,10 +1577,8 @@ h3 {
   display: flex;
   position: fixed;
   bottom: 5px;
-  gap: 20px;
-  padding: 0 50px;
-  justify-content: center;
-  align-items: center;
+  gap: 40px;
+  left: 25%;
 }
 
 .socialMedia-links a i {
@@ -1577,8 +1587,8 @@ h3 {
   align-items: center;
   border-radius: 50%;
   background-color: #2a3342;
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   color: #fff;
   border: none;
 }
@@ -1624,7 +1634,7 @@ h3 {
   }
 
   .mobile-menu {
-    width: 50%;
+    width: 100%;
   }
 
   .header-logo,
@@ -1632,7 +1642,8 @@ h3 {
   .nav-links,
   .site-header__profile-image,
   .feature-buttons,
-  .social-media-links {
+  .social-media-links,
+  .logo-img {
     display: none;
   }
 
@@ -1726,6 +1737,9 @@ h3 {
     display: flex;
     flex-direction: column;
     font-size: larger;
+    text-align: left;
+    padding: 20px 0;
+    margin: 20px 10px;
   }
 
   .recommended-title,
@@ -1738,6 +1752,16 @@ h3 {
 
   #recipeForm {
     padding: 20px;
+  }
+  .about-section p{
+    text-align: left;
+    padding: 0%;
+    margin: 0% 20px;
+  }
+  .contact-info{
+    text-align: left;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -1766,12 +1790,13 @@ h3 {
   .hero-banner-content {
     margin-right: 3rem;
   }
-}
-
-@media (max-width: 520px) {
   .email-subscribe {
     display: flex;
     flex-direction: column;
+    padding: 10px;
+  }
+  .email-subscribe button{
+    width: 100%;
   }
 }
 
@@ -1806,33 +1831,23 @@ h3 {
   }
 }
 
-@media (max-width: 475px) {
-  .share-recipe-container h2 {
-    margin-top: 3rem;
-  }
-
-  .hero-banner {
-    display: none;
-  }
-
-  .Catgry-container {
-    padding: 20px 10px;
-  }
-}
-
 @media (max-width: 478px) {
   .recipe-cards,
   .category-cards,
   .result-cards {
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  .logo-img {
-    display: none;
+  .recommended-title {
+    margin-top: 0;
+    text-align: center;
   }
+
+ 
 
   .hero-container {
     height: 100%;
@@ -1862,9 +1877,35 @@ h3 {
   .hero-banner h3 {
     color: #fc9505;
   }
+  .socialMedia-links {
+    left: 10%;
+  }
 }
 
-@media (max-width: 374px) {
+@media (max-width: 475px) {
+  .search-bar{
+    position: absolute;
+    left: 10px;
+    grid-template-columns: 250px 55px;
+  }
+  .share-recipe-container h2 {
+    margin-top: 3rem;
+  }
+
+  .hero-banner {
+    display: none;
+  }
+
+  .Catgry-container {
+    padding: 20px 10px;
+  }
+  .socialMedia-links{
+    height: 55px;
+    width: 55px;
+  }
+}
+
+@media (max-width: 377px) {
   main {
     display: flex;
     justify-content: center;
@@ -1872,24 +1913,12 @@ h3 {
     flex-direction: column;
     margin-left: 4rem;
   }
-
-  .about-section {
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    display: flex;
-    font-size: 45px;
-    padding: 10px;
+  
+  .about-section p{
+    text-align: left;
+    padding: 0;
+    margin: 0;
   }
-
-  .recommended-title{
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    font-size: 2rem;
-  }
-
   .search-bar {
     position: absolute;
     left: 44px;
@@ -1906,8 +1935,11 @@ h3 {
     right: 12px;
   }
 
-  .mobile-menu {
-    width: 90%;
+  .socialMedia-links {
+    height: 48px;
+    width: 48px;
+    right: 10%;
+    gap: 35px;
   }
 
   .hero-banner-content {

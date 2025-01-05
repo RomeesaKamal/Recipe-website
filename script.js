@@ -598,10 +598,11 @@ document.addEventListener("DOMContentLoaded", () => {
   selectCategory.addEventListener("change", (e) => {
     const selectedCategory = e.target.value;
     fetchAndDisplayRecipesByCategory(selectedCategory);
+  const menu = document.querySelector(".mobile-menu");
+    menu.classList.remove('active');
   });
 
  
-
 
   // *******************************************************************************************
   // Initial Function Calls
