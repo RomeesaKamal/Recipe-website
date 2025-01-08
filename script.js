@@ -493,6 +493,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <!-- User comments will be dynamically added here -->
           </div>
         `;
+        if (fetchResultantRecipes === true) {
+        loadMoreBtn.style.display = "block";
+        }
 
         // Add "View Recipe" Button
         const button = document.createElement("button");
@@ -513,8 +516,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error fetching recipes by category:", error);
       categoryCards.innerHTML =
         "<p class='error'>Failed to load recipes. Please try again later.</p>";
+        loadMoreBtn.style.display = "none";
+
     }
-    loadMoreBtn.style.display = "block";
   };
 
   /**
@@ -1423,19 +1427,19 @@ subscribeBtn.addEventListener("click", () => {
 
 // // Mobile Version
 
-function toggleMenu() {
-  const menu = document.querySelector(".mobile-menu");
-  if (menu.style.display === "flex") {
-    menu.style.display = "none";
-  } else {
-    menu.style.display = "flex";
-  }
-}
 
-function toggleMenu() {
+document.querySelector('.hamburger').addEventListener('click', () => {
   const menu = document.querySelector(".mobile-menu");
-  menu.classList.toggle("active");
-}
+  menu.classList.add('active');
+  document.querySelector('.close-mobile').style.display = 'block';
+  document.querySelector('.hamburger').style.display = 'none';
+})
+
+document.querySelector('.close-mobile').addEventListener('click',() => {
+  const menu = document.querySelector(".mobile-menu");
+  menu.classList.remove("active");
+  document.querySelector('.hamburger').style.display = 'block';
+})
 
 document.querySelector("#recipBtn").addEventListener("click", (e) => {
   e.preventDefault();

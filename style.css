@@ -1520,17 +1520,31 @@ h3 {
   transform: translateX(0); /* Show menu on-screen */
 }
 
+.close-mobile{
+  display: none;
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+
 .logo-prfile {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 #logo {
-  height: 150px;
-  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 250px;
 }
 
 #profile {
+  display: none;
   height: 150px;
   width: 150px;
   margin-top: 20px;
@@ -1647,6 +1661,12 @@ h3 {
     display: none;
   }
 
+  .load-more{
+    width: 90%;
+    margin: 0 20px;
+    margin-bottom: 20px;
+  }
+
   .hamburger,
   .mobile-menu {
     display: block;
@@ -1676,6 +1696,25 @@ h3 {
   .category-cards,
   .result-cards {
     grid-template-columns: 1fr;
+  }
+
+  .result-sections,
+  .category-secttions{
+    margin-top: 20px;
+    text-align: start;
+    margin: 0;
+    padding: 0;
+  }
+
+  .error{
+    grid-column: auto;
+    text-align: start;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: start;
+    align-items: start;
   }
 
   .hero-banner {
@@ -1745,9 +1784,11 @@ h3 {
   .recommended-title,
   .research-title,
   .category-title {
-    font-size: 38px;
+
     line-height: 62px;
     align-items: center;
+    margin: 20px 0;
+    text-align: center;
   }
 
   #recipeForm {
@@ -1900,8 +1941,10 @@ h3 {
     padding: 20px 10px;
   }
   .socialMedia-links{
-    height: 55px;
-    width: 55px;
+    left: 5px;
+    right: 30px;
+    height: 50px;
+    width: 50px;
   }
 }
 
