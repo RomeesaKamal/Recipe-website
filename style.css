@@ -1244,6 +1244,7 @@ span {
   display: flex;
   color: #dc582a;
   justify-content: space-between;
+  margin-bottom: 3rem;
 }
 
 .card-content h3 span i {
@@ -1253,7 +1254,6 @@ span {
 }
 
 .card-content button {
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1265,6 +1265,8 @@ span {
   border-radius: 8px;
   font-size: 20px;
 }
+
+
 
 .card-content button:hover {
   background-color: #3b7522;
@@ -1831,6 +1833,7 @@ h3 {
   .hero-banner-content {
     margin-right: 3rem;
   }
+
   .email-subscribe {
     display: flex;
     flex-direction: column;
@@ -1844,6 +1847,10 @@ h3 {
 @media (max-width: 516px) {
   .share-recipe-container h2 {
     margin-top: 2rem;
+  }
+
+  .viev-recipe{
+ margin: 20px 3rem;
   }
 
   .search-bar {
