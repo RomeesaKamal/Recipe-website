@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryCards = document.querySelector(".category-cards");
   const categoryTitle = document.querySelector(".category-title");
   const select = document.querySelector(".search-bar #select");
-  const selectCategory = document.querySelector(".mobile-menu #select-category");
+  const selectCategory = document.querySelector(
+    ".mobile-menu #select-category"
+  );
   const recipeCloseBtn = document.querySelector(".recipe-close-btn");
   const commentPopup = document.getElementById("comment-popup");
   const commentForm = document.getElementById("comment-form");
@@ -316,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add "View Recipe" Button
         const button = document.createElement("button");
         button.textContent = "View Recipe";
-        button.classList.add('viev-recipe');
+        button.classList.add("viev-recipe");
         button.addEventListener("click", () => openRecipePopup(meal));
         cardContent.appendChild(button);
 
@@ -334,12 +336,6 @@ document.addEventListener("DOMContentLoaded", () => {
       resultCards.innerHTML =
         "<h2 class='error'>Error fetching recipes. Please try again later.</h2>";
     }
-    if (fetchResultantRecipes) {
-      loadMoreBtn.style.display = "block";
-  }else{
-    loadMoreBtn.style.display = "none";
-  }
-  
   };
 
   // *******************************************************************************************
@@ -367,7 +363,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       recipeContainer.innerHTML = "";
-      loadMoreBtn.style.display = "none";
 
       data.meals.forEach((meal) => {
         const recipeCard = document.createElement("div");
@@ -405,7 +400,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add "View Recipe" Button
         const button = document.createElement("button");
         button.textContent = "View Recipe";
-        button.classList.add('viev-recipe');
+        button.classList.add("viev-recipe");
         button.addEventListener("click", () => openRecipePopup(meal));
         cardContent.appendChild(button);
 
@@ -430,46 +425,50 @@ document.addEventListener("DOMContentLoaded", () => {
   // *******************************************************************************************
   // Fetch and Display Recipes by Selected Category
   // ******************************************************************************************
-  
-// Fetch and display recipes based on the selected category
-const fetchAndDisplayRecipesByCategory = async (category) => {
-  if (!category) {
-      categoryCards.innerHTML = "<p>Please select a category to view recipes.</p>";
+
+  // Fetch and display recipes based on the selected category
+  const fetchAndDisplayRecipesByCategory = async (category) => {
+    if (!category) {
+      categoryCards.innerHTML =
+        "<p>Please select a category to view recipes.</p>";
       categoryTitle.style.display = "none";
       return;
-  }
+    }
 
-  categoryTitle.style.display = "block";
-  categoryCards.innerHTML = "<h2>Loading Recipes...</h2>";
-  resultCards.innerHTML = "";
-  recipeTitle.style.display = "none";
+    categoryTitle.style.display = "block";
+    categoryCards.innerHTML = "<h2>Loading Recipes...</h2>";
+    resultCards.innerHTML = "";
+    recipeTitle.style.display = "none";
 
-  try {
+    try {
       const response = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(category)}`
+        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(
+          category
+        )}`
       );
       const data = await response.json();
 
       if (!data.meals || data.meals.length === 0) {
-          categoryCards.innerHTML = "<p class='error'>No recipes found for this category.</p>";
-          return;
+        categoryCards.innerHTML =
+          "<p class='error'>No recipes found for this category.</p>";
+        return;
       }
 
       categoryCards.innerHTML = ""; // Clear previous results
 
       for (const meal of data.meals) {
-          const fullMeal = await getRecipeById(meal.idMeal); // Fetch full meal details
+        const fullMeal = await getRecipeById(meal.idMeal); // Fetch full meal details
 
-          const categoryCard = document.createElement("div");
-          categoryCard.classList.add("category-card");
+        const categoryCard = document.createElement("div");
+        categoryCard.classList.add("category-card");
 
-          // Add Recipe Image
-          categoryCard.innerHTML = `<img src="${fullMeal.strMealThumb}" alt="${fullMeal.strMeal}">`;
+        // Add Recipe Image
+        categoryCard.innerHTML = `<img src="${fullMeal.strMealThumb}" alt="${fullMeal.strMeal}">`;
 
-          // Create Card Content
-          const cardContent = document.createElement("div");
-          cardContent.classList.add("card-content");
-          cardContent.innerHTML = `
+        // Create Card Content
+        const cardContent = document.createElement("div");
+        cardContent.classList.add("card-content");
+        cardContent.innerHTML = `
               <p>${fullMeal.strArea} Dish</p>
               <h2>${fullMeal.strMeal}  
                   <span>
@@ -490,64 +489,67 @@ const fetchAndDisplayRecipesByCategory = async (category) => {
               </div>
           `;
 
-          // Add "View Recipe" Button
-          const button = document.createElement("button");
-          button.textContent = "View Recipe";
-          button.classList.add("view-recipe");
-          button.addEventListener("click", () => openRecipePopup(fullMeal));
-          cardContent.appendChild(button);
+        // Add "View Recipe" Button
+        const button = document.createElement("button");
+        button.textContent = "View Recipe";
+        button.classList.add("view-recipe");
+        button.addEventListener("click", () => openRecipePopup(fullMeal));
+        cardContent.appendChild(button);
 
-          // Append Card Content to Category Card
-          categoryCard.appendChild(cardContent);
+        // Append Card Content to Category Card
+        categoryCard.appendChild(cardContent);
 
-          // Bind Functionality (like, rate, comment)
-          bindCardFunctionality(categoryCard, fullMeal);
+        // Bind Functionality (like, rate, comment)
+        bindCardFunctionality(categoryCard, fullMeal);
 
-          // Append Category Card to Container
-          categoryCards.appendChild(categoryCard);
+        // Append Category Card to Container
+        categoryCards.appendChild(categoryCard);
       }
-
-      loadMoreBtn.style.display = "block"; // Show Load More button
-  } catch (error) {
+    } catch (error) {
       console.error("Error fetching recipes by category:", error);
-      categoryCards.innerHTML = "<p class='error'>Failed to load recipes. Please try again later.</p>";
-  }
-};
+      categoryCards.innerHTML =
+        "<p class='error'>Failed to load recipes. Please try again later.</p>";
+    }
+  };
 
-// Fetch full recipe details by meal ID
-const getRecipeById = async (id) => {
-  try {
+  // Fetch full recipe details by meal ID
+  const getRecipeById = async (id) => {
+    try {
       const response = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${encodeURIComponent(id)}`
+        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${encodeURIComponent(
+          id
+        )}`
       );
       const data = await response.json();
       return data.meals[0];
-  } catch (error) {
+    } catch (error) {
       console.error("Error fetching recipe details:", error);
       throw error;
-  }
-};
+    }
+  };
 
-// Fetch all recipe categories
-const fetchCategories = async () => {
-  try {
-      const response = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+  // Fetch all recipe categories
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/categories.php"
+      );
       const data = await response.json();
       return data.categories || [];
-  } catch (error) {
+    } catch (error) {
       console.error("Error fetching categories:", error);
       return [];
-  }
-};
+    }
+  };
 
-// Populate the category dropdown with fetched categories
-const populateCategories = async () => {
-  const categories = await fetchCategories();
+  // Populate the category dropdown with fetched categories
+  const populateCategories = async () => {
+    const categories = await fetchCategories();
 
-  select.innerHTML = '<option value="">All Categories</option>';
-  selectCategory.innerHTML = '<option value="">All Categories</option>';
+    select.innerHTML = '<option value="">All Categories</option>';
+    selectCategory.innerHTML = '<option value="">All Categories</option>';
 
-  categories.forEach((category) => {
+    categories.forEach((category) => {
       // Create option for `select`
       const option1 = document.createElement("option");
       option1.value = category.strCategory;
@@ -559,51 +561,52 @@ const populateCategories = async () => {
       option2.value = category.strCategory;
       option2.textContent = category.strCategory;
       selectCategory.appendChild(option2);
+    });
+  };
+
+  // Event Listeners
+  searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const searchInput = searchBox.value.trim();
+    fetchResultantRecipes(searchInput);
   });
-};
 
-// Event Listeners
-searchBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const searchInput = searchBox.value.trim();
-  fetchResultantRecipes(searchInput);
-});
-
-if (select) {
-  select.addEventListener("change", (e) => {
+  if (select) {
+    select.addEventListener("change", (e) => {
       const selectedCategory = e.target.value;
       console.log("Change event triggered on `select`:", selectedCategory);
       fetchAndDisplayRecipesByCategory(selectedCategory);
-  });
-} else {
-  console.error("Select element not found!");
-}
+    });
+  } else {
+    console.error("Select element not found!");
+  }
 
-if (selectCategory) {
-  selectCategory.addEventListener("change", (e) => {
+  if (selectCategory) {
+    selectCategory.addEventListener("change", (e) => {
       const selectedCategory = e.target.value;
-      console.log("Change event triggered on `selectCategory`:", selectedCategory);
+      console.log(
+        "Change event triggered on `selectCategory`:",
+        selectedCategory
+      );
       fetchAndDisplayRecipesByCategory(selectedCategory);
 
       const menu = document.querySelector(".mobile-menu");
       if (menu) {
-          menu.classList.remove("active");
+        menu.classList.remove("active");
       } else {
-          console.error("Mobile menu not found!");
+        console.error("Mobile menu not found!");
       }
-  });
-} else {
-  console.error("SelectCategory element not found!");
-}
-
-
+    });
+  } else {
+    console.error("SelectCategory element not found!");
+  }
 
   // *******************************************************************************************
   // Initial Function Calls
   // *******************************************************************************************
 
- // Populate categories on load
-populateCategories().catch(console.error);
+  // Populate categories on load
+  populateCategories().catch(console.error);
 
   // Fetch and display recommended recipes on page load
   fetchRecommendedRecipes();
@@ -622,7 +625,6 @@ const footerContent = document.querySelector(".footer-content");
 const recommendedTitle = document.querySelector(".recommended-title");
 const menuCloseBtn = document.querySelector(".menu-close-btn");
 const recipeCloseBtn = document.querySelector(".recipe-close-btn");
-const loadMoreBtn = document.querySelector(".load-more");
 const shareRecipeBtn = document.querySelector(".button-share-recipe");
 const shareRecipeContainer = document.querySelector(".share-recipe-container");
 const closeShareRecipeBtn = document.querySelector(".close-share-recipe");
@@ -748,7 +750,6 @@ menuCloseBtn.addEventListener("click", () => (menuCard.style.display = "none"));
 // Selectors
 document.addEventListener("DOMContentLoaded", () => {
   const searchBox = document.querySelector("#searchBox");
-  // const loadMoreBtn = document.querySelector("#loadMoreBtn");
   let currentPage = 1;
 
   async function fetchRecipes(apiUrl, query, page = 1) {
@@ -765,25 +766,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  async function handleLoadMore() {
-    const apiUrl = "https://example.com/api/recipes"; // Replace with your API URL
-    const searchQuery = searchBox?.value.trim() || "";
-    currentPage++;
-    const newRecipes = await fetchRecipes(apiUrl, searchQuery, currentPage);
-
-    if (!newRecipes || newRecipes.length === 0) {
-      loadMoreBtn.disabled = true;
-      loadMoreBtn.textContent = "No More Recipes";
-      loadMoreBtn.style.color = "red";
-      loadMoreBtn.style.fontSize = "24px";
-    } else {
-      renderRecipes(newRecipes); // Ensure renderRecipes is defined
-    }
-  }
-
-  loadMoreBtn.addEventListener("click", handleLoadMore);
 });
-
 function renderRecipes(recipes) {
   const recipeContainer = document.querySelector("#recipeContainer"); // Update with your container ID
   recipes.forEach((recipe) => {
@@ -1417,19 +1400,18 @@ subscribeBtn.addEventListener("click", () => {
 
 // // Mobile Version
 
-
-document.querySelector('.hamburger').addEventListener('click', () => {
+document.querySelector(".hamburger").addEventListener("click", () => {
   const menu = document.querySelector(".mobile-menu");
-  menu.classList.add('active');
-  document.querySelector('.close-mobile').style.display = 'block';
-  document.querySelector('.hamburger').style.display = 'none';
-})
+  menu.classList.add("active");
+  document.querySelector(".close-mobile").style.display = "block";
+  document.querySelector(".hamburger").style.display = "none";
+});
 
-document.querySelector('.close-mobile').addEventListener('click',() => {
+document.querySelector(".close-mobile").addEventListener("click", () => {
   const menu = document.querySelector(".mobile-menu");
   menu.classList.remove("active");
-  document.querySelector('.hamburger').style.display = 'block';
-})
+  document.querySelector(".hamburger").style.display = "block";
+});
 
 document.querySelector("#recipBtn").addEventListener("click", (e) => {
   e.preventDefault();
@@ -1456,4 +1438,3 @@ document.querySelector("#tipBtn").addEventListener("click", (e) => {
   e.preventDefault();
   tipcontainer.style.display = "block";
 });
-
