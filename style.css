@@ -1577,6 +1577,23 @@ h3 {
   margin-bottom: 40px;
 }
 
+.video-container {
+  position: relative;
+  width: 100%; /* Full width of the parent */
+  padding-bottom: 56.25%; /* Aspect ratio for 16:9 */
+  height: 0; /* Required for proper ratio */
+  overflow: hidden;
+}
+
+.video-container iframe {
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%; 
+}
+
 /* Media Querry */
 
 @media (max-width: 778px) {
@@ -1585,6 +1602,24 @@ h3 {
     gap: 30px;
     padding-left: 90px;
   }
+
+  .recipe-details-content{
+    padding: 18px;
+  }
+
+  .recipe-details{
+    width: 100% !important; 
+    height: 90%;
+  }
+
+  .cooking-tips-container,
+  .grocery-list-container ,
+  .custom-meal-container , 
+  .share-recipe-container,
+  .menu-card{
+    width: 100% !important;
+  }
+
 
   #featureBtn {
     display: block;
@@ -1655,14 +1690,6 @@ h3 {
     align-items: start;
   }
 
-  .recipe-details,
-  .cooking-tips-container,
-  .grocery-list-container,
-  .custom-meal-container,
-  .share-recipe-container,
-  .menu-card {
-    width: 93%;
-  }
 
   .hero-banner {
     position: relative;
@@ -1681,9 +1708,6 @@ h3 {
     margin: 0;
   }
 
-  .recipe-details {
-    width: 70%;
-  }
 
   .recipe-details-content h2 {
     font-size: 30px;
@@ -1708,7 +1732,7 @@ h3 {
   .category-title {
     line-height: 62px;
     align-items: center;
-    margin: 20px 0;
+    margin: 20px 10px;
     text-align: center;
   }
 

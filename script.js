@@ -96,11 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2 class="recipeName">${meal.strMeal || "No Name"}</h2>
       <h3 class="ingredientHeading">Ingredients:</h3>
       <ol class="ingredientsList">${fetchIngredients(meal)}</ol>
+      <div class="video-container">
       ${
         youtubeEmbedUrl
-          ? `<iframe width="600" height="315" src="${youtubeEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+          ? `<iframe width="600" height="315"  src="${youtubeEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
           : "<p>No Video Available</p>"
       }
+       </div>
       <div class="recipeInstructions">
         <h3>Instructions:</h3>
         <p>${meal.strInstructions || "No instructions available."}</p>
